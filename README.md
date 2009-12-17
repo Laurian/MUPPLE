@@ -1,4 +1,4 @@
 MUPPLE
 ======
 
-see http://wiki.mozilla.org/Education/Projects/JetpackForLearning/Profiles/MUPPLE
+see [MUPPLE on Mozilla Wiki](https://wiki.mozilla.org/Education/Projects/JetpackForLearning/Profiles/MUPPLE)
