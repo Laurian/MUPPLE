@@ -17,13 +17,12 @@
 var M = (function() {
 	return {
 		title:	"MUPPLE",
+		prefix:	"http://github.com/Laurian/MUPPLE/raw/master/",
 		run:	function() {
 			with (jetpack) {
 				future.import("slideBar");
 				slideBar.append({
-					html:	<?xml version="1.0" encoding="UTF-8"?>
-							<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN" "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd">
-							<html	xmlns="http://www.w3.org/1999/xhtml"
+					html:	<html	xmlns="http://www.w3.org/1999/xhtml"
 					      			xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 					      			version="XHTML+RDFa 1.0"
 					      			xml:lang="en-GB">
@@ -31,17 +30,36 @@ var M = (function() {
 									<link href="http://www.w3.org/2003/g/glean-profile" rel="transformation" />
 								  	<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
 									<title>{M.title}</title>
-									<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+									<script type="text/javascript">var prefix = "{M.prefix}";</script>
 									<style type="text/css"><![CDATA[
-										
+										h1	{
+											color:	red;
+										}
 									]]></style>
 								</head>
 								<body>
-									<h1>{M.title}</h1>
-									
+									<h1 onclick="init();">{M.title}</h1>
+									<script type="text/javascript"><![CDATA[
+										var s = document.createElement("script");
+										s.src = prefix + "script/lib/LAB.js";
+										s.onload = function () {
+											$LAB
+											.script(prefix + "script/lib/jquery-1.3.2.min.js").wait()
+											.script(prefix + "script/lib/jquery.json-2.2.min.js").wait()
+											.script(prefix + "script/lib/jquery.rdfquery.core-1.0.js").wait()
+											.script(prefix + "script/lib/jquery.rdfquery.rdfa-1.0.js").wait()
+											.script(prefix + "script/lib/jquery.rdfquery.rules-1.0.js").wait(function() {
+												alert($().rdf().databank.dump({format:'application/rdf+xml', serialize: true}));
+											});
+										};
+										document.body.appendChild(s);
+									]]></script>
 								</body>
 							</html>,
-					width:	400
+					width:	400,
+					onReady:	function(slide) {
+						
+					}
 				});
 			}
 		}
