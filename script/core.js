@@ -57,7 +57,7 @@ var M = (function() {
 											<div class="tab">
 												<h4 class="title">Untitled</h4>
 												<div>
-											   		<ul>
+											   		<ul class="action">
 											    		<li>action one</li>
 											        	<li>action two</li>
 											        	<li>action three</li>
@@ -106,7 +106,8 @@ var M = (function() {
 							
 							$("#empty", document).remove();
 							
-							var t = $($("#tab", document).html(), document);
+							//var t = $($("#tab", document).html(), document);
+							var t = $("#tab", document).clone();
 							$("div.container", document).append(t);
 							t.autoRender({
 								title: $("title", tab).text()
