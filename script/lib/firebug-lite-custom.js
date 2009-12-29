@@ -8,7 +8,7 @@ var firebug = {
     "dIndex":"console", 
     "height":295,
     "hideDOMFunctions":false,
-    "openInPopup": false,
+    "openInPopup": true,
     "override":false,
     "ml":false,
     "showIconWhenHidden":true,
