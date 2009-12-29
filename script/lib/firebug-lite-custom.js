@@ -26,7 +26,7 @@ var firebug = {
     "liteFilename":null,
     "minimized":false,
     "popupWin":null,
-    "targetWindow":undefined
+    "targetWindow":window
   },
   initConsole:function(){
     /* 
