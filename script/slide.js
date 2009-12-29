@@ -10,7 +10,10 @@ var timeout;
 
 $(".title").livequery(function(){
 	log("match: .title");
+	log($(this).html());
+	
     $(this).bind("click", function(){
+		log("click");
         var parent = this.parent;
         if (!timeout) 
             timeout = setTimeout(function(){
@@ -27,6 +30,7 @@ $(".title").livequery(function(){
 });
 
 $('.title, .action li').livequery(function(){
+	log("match: .title, .action li");
     $(this).editable(function(value, settings){
         $(this).effect("highlight", null, 2500);
         return value;

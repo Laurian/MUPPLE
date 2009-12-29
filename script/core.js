@@ -66,6 +66,8 @@ var M = (function() {
 											</div>
 										</div>
 									</div>
+									<hr />
+									<pre><![CDATA[ ]]></pre>
 								</body>
 							</html>,
 					
