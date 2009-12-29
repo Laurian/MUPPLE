@@ -14,10 +14,11 @@ $(".title").livequery(function(){
 	
     $(this).bind("click", function(){
 		log("click");
-        var parent = this.parent;
+        var parent = $(this).parent();
         if (!timeout) {
 			log("!timeout");
             timeout = setTimeout(function(){
+				log("toggle " + parent);
                 timeout = null;
                 $(".content", parent).toggle("blind", null, 200);
             }, 200);
