@@ -7,12 +7,21 @@
 // Import the non-default scaffolding module.
 @import blueprint/modules/scaffolding.sass
 
+@import blueprint/modules/buttons.sass
+
 // To generate css equivalent to the blueprint css but with your configuration applied, uncomment:
 // +blueprint
 
 //Recommended Blueprint configuration with scoping and semantic layout:
 +blueprint-typography("body.slide")
 +blueprint-scaffolding("body.slide")
+
+
+=small-button(!float = false)
+	+button-base(!float)
+	-moz-border-radius:	4px 4px 4px 4px
+	margin:	0
+
 
 body.slide
 	+blueprint-utilities
@@ -44,15 +53,47 @@ body.slide
 		-moz-box-shadow:	0px 0px 5px #999999
 		background-color:	white
 		margin:				8px
-		padding:			8px
+		padding:			4px
 		
 		h4
 			+column(7)
+			width:			250px
 			white-space:	nowrap
 			overflow:		hidden
 			text-overflow:	ellipsis
 			margin-bottom:	0
+			background-image: 		url(../image/check-circle-2.png)
+			background-repeat: 		no-repeat
+			background-position: 	0 1px
+			padding-left: 			20px
+			padding-right:			10px
 			
 		.content
 			+column(7)
 			margin-top:	18px
+			
+			ul
+				margin:		0
+				padding:	0
+				list-style:	none
+
+				li
+					background-image: 		url(../image/arrow-simple-right-2.png)
+					background-repeat: 		no-repeat
+					background-position: 	0 2px
+					padding-left: 			20px
+					padding-bottom:			4px
+					
+			div.bar
+				+column(2)
+				+prepend(5)
+				border-top:		1px solid #eeeeee
+				padding-top:	4px
+
+				
+				button
+					+button-colors
+					+button-hover-colors
+					+button-active-colors
+					+small-button("right")
+					
