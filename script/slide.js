@@ -17,11 +17,11 @@ $(".title").livequery(function(){
         var parent = $(this).parent();
         if (!timeout) {
 			log("!timeout");
-            //timeout = setTimeout(function(){
-				log("toggle " + parent);
+            timeout = setTimeout(function(){
+				log("toggle " + $(".content", parent).length);
                 timeout = null;
                 $(".content", parent).toggle("blind", null, 200);
-            //}, 200);
+            }, 200);
 		}
     }).bind("dblclick", function(){
 		log("dblclick");

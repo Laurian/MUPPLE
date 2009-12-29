@@ -42,6 +42,7 @@ var M = (function() {
 										}
 									]]></script>
 									<link href="style/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+									<link href="style/smoothness/jquery-ui-1.7.2.custom.css" media="screen, projection" rel="stylesheet" type="text/css" />
 									<style type="text/css"><![CDATA[
 										#templates	{
 											xdisplay:	none;
