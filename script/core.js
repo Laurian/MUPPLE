@@ -55,12 +55,14 @@ var M = (function() {
 									<div id="templates">
 										<div id="tab">
 											<div class="tab">
-												<h4 class="title">...</h4>
-											   	<ul>
-											    	<li>action one</li>
-											        <li>action two</li>
-											        <li>action three</li>
-											    </ul>
+												<h4 class="title">Untitled</h4>
+												<div>
+											   		<ul>
+											    		<li>action one</li>
+											        	<li>action two</li>
+											        	<li>action three</li>
+											    	</ul>
+												</div>
 											</div>
 										</div>
 									</div>
