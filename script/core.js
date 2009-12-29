@@ -79,7 +79,11 @@ var M = (function() {
 						var document = slide.contentDocument;
 						
 						M.loadLibs(document, function() {
-							console.log("loaded");
+							M.loadUILibs(document, function() {
+								M.loadScript(M.base + "script/slide.js", document, function() {
+									console.log("loaded");
+								});
+							});
 						});
 						
 						// "import" PURE
@@ -132,6 +136,19 @@ var M = (function() {
 					loadScript(base + "script/lib/jquery.json-2.2.min.js", document, function() {
 						loadScript(base + "script/lib/jquery.rdfquery.core-1.0.js", document, function() {
 							loadScript(base + "script/lib/jquery.rdfquery.rdfa-1.0.js", document, callback);
+						});
+					});
+				});
+			}
+		},
+		
+		loadUILibs:	function(document, callback) {
+			//TODO: detect and reuse existing jQuery, see http://jetpackgallery.mozillalabs.com/jetpacks/154
+			with (M) {
+				loadScript(base + "script/lib/jquery-ui-1.7.2.custom.min.js", document, function() {
+					loadScript(base + "script/lib/jquery.text-overflow.js", document, function() {
+						loadScript(base + "script/lib/jquery.jeditable.js", document, function() {
+							loadScript(base + "script/lib/jquery.livequery.js", document, callback);
 						});
 					});
 				});
