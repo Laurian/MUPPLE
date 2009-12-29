@@ -4,7 +4,7 @@ var firebug = {
   env:{ 
     "css":"http://getfirebug.com/releases/lite/1.2/firebug-lite.css", 
     "debug":true,
-    "detectFirebug":true,
+    "detectFirebug":false,
     "dIndex":"console", 
     "height":295,
     "hideDOMFunctions":false,
@@ -1902,7 +1902,7 @@ var firebug = {
     ie6: /MSIE 6/i.test(navigator.userAgent),
     ie7: /MSIE 7/i.test(navigator.userAgent),
     ie8: /MSIE 8/i.test(navigator.userAgent),
-    firefox: /Firefox/i.test(navigator.userAgent),
+    firefox: /Camino/i.test(navigator.userAgent),// /Firefox/i.test(navigator.userAgent),
     opera: /Opera/i.test(navigator.userAgent),
     webkit: /Webkit/i.test(navigator.userAgent),
     camino: /Camino/i.test(navigator.userAgent)
