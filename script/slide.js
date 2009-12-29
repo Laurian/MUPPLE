@@ -15,11 +15,12 @@ $(".title").livequery(function(){
     $(this).bind("click", function(){
 		log("click");
         var parent = this.parent;
-        if (!timeout) 
+        if (!timeout) {
             timeout = setTimeout(function(){
                 timeout = null;
                 $(".content", parent).toggle("blind", null, 200);
             }, 200);
+		}
     }).bind("dblclick", function(){
         if (timeout) {
             clearTimeout(timeout);
