@@ -7,20 +7,19 @@ $(".action").livequery(function(){
 });
 
 var timeout;
-var parent;
 
 $(".title").livequery(function(){
 	log("match: .title");
 	log($(this).html());
 	
-	parent = $(this).parent();
-	
     $(this).bind("click", function(){
 		log("click");
+
+		var parent = $(this).parent();
         if (!timeout) {
 			log("!timeout");
             timeout = setTimeout(function(){
-				log("toggle " + $(".content", parent).length);
+				log("toggle " + $(parent).length);
                 timeout = null;
                 $(".content", parent).toggle("blind", null, 200);
             }, 200);
