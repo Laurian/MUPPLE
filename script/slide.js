@@ -5,7 +5,7 @@ $(".action").livequery(function(){
 var timeout;
 
 $(".title").livequery(function(){
-    $(this).ellipsis().bind("click", function(){
+    $(this).bind("click", function(){
         var parent = this.parent;
         if (!timeout) 
             timeout = setTimeout(function(){
@@ -18,6 +18,7 @@ $(".title").livequery(function(){
             timeout = null;
         }
     });
+	$(this).ellipsis();
 });
 
 $('.title, .action li').livequery(function(){
