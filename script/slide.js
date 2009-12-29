@@ -10,22 +10,16 @@ var timeout;
 
 $(".title").livequery(function(){
 	log("match: .title");
-	log($(this).html());
 	
     $(this).bind("click", function(){
-		log("click");
-
 		var parent = $(this).parent();
         if (!timeout) {
-			log("!timeout");
-            timeout = setTimeout(function(){
-				log("toggle " + $(parent).length);
-                timeout = null;
+			timeout = setTimeout(function(){
+			    timeout = null;
                 $(".content", parent).toggle("blind", null, 200);
             }, 200);
 		}
     }).bind("dblclick", function(){
-		log("dblclick");
         if (timeout) {
             clearTimeout(timeout);
             timeout = null;

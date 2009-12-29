@@ -57,7 +57,7 @@ var M = (function() {
 										<div id="tab">
 											<div class="tab">
 												<h4 class="title">Untitled</h4>
-												<div>
+												<div class="content">
 											   		<ul class="action">
 											    		<li>action one</li>
 											        	<li>action two</li>
