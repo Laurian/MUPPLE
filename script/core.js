@@ -48,8 +48,7 @@ var M = (function() {
 											display:	none;
 										}
 										#flow {
-											position:	relative;
-											left:		-200px;
+											color:	white;
 										}
 									]]></style>
 								</head>
@@ -67,6 +66,9 @@ var M = (function() {
 											        	<li>action two</li>
 											        	<li>action three</li>
 											    	</ul>
+													<div class="bar">
+														<button>Done</button>
+													</div>
 												</div>
 											</div>
 										</div>
