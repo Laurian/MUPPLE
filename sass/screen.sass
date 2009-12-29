@@ -11,30 +11,36 @@
 // +blueprint
 
 //Recommended Blueprint configuration with scoping and semantic layout:
-+blueprint-typography("body.bp")
-+blueprint-scaffolding("body.bp")
-body.bp
-  +blueprint-utilities
-  +blueprint-debug
-  +blueprint-interaction
-  // Remove the scaffolding when you're ready to start doing visual design.
-  // Or leave it in if you're happy with how blueprint looks out-of-the-box
-form.bp
-  +blueprint-form
++blueprint-typography("body.slide")
++blueprint-scaffolding("body.slide")
 
-// Page layout can be done using mixins applied to your semantic classes and IDs:
-body.three-col
-  #container
-    +container
-  #header, #footer
-    +column(!blueprint_grid_columns)
-  #sidebar
-    // One third of the grid columns, rounding down. With 24 cols, this is 8.
-    !sidebar_columns = floor(!blueprint_grid_columns / 3)
-    +column(!sidebar_columns)
-  #content
-    // Two thirds of the grid columns, rounding up.
-    // With 24 cols, this is 16.
-    !content_columns = ceil(2 * !blueprint_grid_columns / 3)
-    // true means it's the last column in the row
-    +column(!content_columns, true)
+body.slide
+	+blueprint-utilities
+	+blueprint-debug
+	+blueprint-interaction
+	// Remove the scaffolding when you're ready to start doing visual design.
+	// Or leave it in if you're happy with how blueprint looks out-of-the-box
+	margin:		0
+	padding:	0
+	background-color:	#eeeeee
+
+	div.container
+		+container
+		margin:		0
+		padding:	0
+		width:		300px
+
+		
+	div.tab
+		+column(7)
+		-moz-border-radius:	4px 4px 4px 4px
+		-moz-box-shadow:	0px 0px 5px #999999
+		background-color:	white
+		margin:				8px
+		padding:			8px
+		
+		h4
+			+column(7)
+			white-space:	nowrap
+			overflow:		hidden
+			text-overflow:	ellipsis
