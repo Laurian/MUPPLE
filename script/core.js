@@ -45,12 +45,16 @@ var M = (function() {
 									<link href="style/smoothness/jquery-ui-1.7.2.custom.css" media="screen, projection" rel="stylesheet" type="text/css" />
 									<style type="text/css"><![CDATA[
 										#templates	{
-											xdisplay:	none;
+											display:	none;
+										}
+										#flow {
+											position:	relative;
+											left:		-200px;
 										}
 									]]></style>
 								</head>
 								<body class="slide">
-									<div class="container">
+									<div id="main" class="container">
 										<h1 id="empty">things will happen here once you (re)load tabs</h1>
 									</div>
 									<div id="templates">
@@ -67,9 +71,10 @@ var M = (function() {
 											</div>
 										</div>
 									</div>
-									<hr />
+									<div class="container">
+										<pre><![CDATA[ ]]></pre>
+									</div>
 									<span id="flow"><![CDATA[ ]]></span>
-									<pre><![CDATA[ ]]></pre>
 								</body>
 							</html>,
 					
@@ -112,9 +117,8 @@ var M = (function() {
 							
 							$("#empty", document).remove();
 							
-							//var t = $($("#tab", document).html(), document);
 							var t = $("#tab", document).clone();
-							$("div.container", document).append(t);
+							$("#main", document).append(t);
 							t.autoRender({
 								title: $("title", tab).text()
 							});

@@ -13,8 +13,6 @@ $(".action").livequery(function(){
 var timeout;
 
 $(".title").livequery(function(){
-	log("match: .title");
-	
     $(this).bind("click", function(){
 		var parent = $(this).parent();
         if (!timeout) {
@@ -33,7 +31,6 @@ $(".title").livequery(function(){
 });
 
 $('.title, .action li').livequery(function(){
-	log("match: .title, .action li");
     $(this).editable(function(value, settings){
         $(this).effect("highlight", null, 2500);
         return value;
