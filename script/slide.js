@@ -5,6 +5,7 @@ $(".action").livequery(function(){
 var timeout;
 
 $(".title").livequery(function(){
+	console.log("match: .title");
     $(this).bind("click", function(){
         var parent = this.parent;
         if (!timeout) 

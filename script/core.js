@@ -44,7 +44,7 @@ var M = (function() {
 									<link href="style/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
 									<style type="text/css"><![CDATA[
 										#templates	{
-											display:	none;
+											xdisplay:	none;
 										}
 									]]></style>
 								</head>
@@ -81,7 +81,9 @@ var M = (function() {
 						M.loadLibs(document, function() {
 							M.loadUILibs(document, function() {
 								M.loadScript(M.base + "script/slide.js", document, function() {
-									console.log("loaded");
+									M.loadScript("http://getfirebug.com/releases/lite/1.2/firebug-lite-compressed.js", document, function() {
+										console.log("loaded");
+									});
 								});
 							});
 						});
