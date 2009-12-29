@@ -12,9 +12,10 @@ $(".title").livequery(function(){
 	log("match: .title");
 	log($(this).html());
 	
+	var parent = $(this).parent();
+	
     $(this).bind("click", function(){
 		log("click");
-        var parent = $(this).parent();
         if (!timeout) {
 			log("!timeout");
             timeout = setTimeout(function(){
