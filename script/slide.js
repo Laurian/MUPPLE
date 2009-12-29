@@ -7,12 +7,13 @@ $(".action").livequery(function(){
 });
 
 var timeout;
+var parent;
 
 $(".title").livequery(function(){
 	log("match: .title");
 	log($(this).html());
 	
-	var parent = $(this).parent();
+	parent = $(this).parent();
 	
     $(this).bind("click", function(){
 		log("click");
