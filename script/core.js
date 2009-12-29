@@ -68,6 +68,7 @@ var M = (function() {
 										</div>
 									</div>
 									<hr />
+									<span id="flow"><![CDATA[ ]]></span>
 									<pre><![CDATA[ ]]></pre>
 								</body>
 							</html>,

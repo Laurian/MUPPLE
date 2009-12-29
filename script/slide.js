@@ -2,6 +2,10 @@ function log(line) {
 	$("pre").text($("pre").text() + "\n" + line);	
 }
 
+$("body").mousemove(function(e) {
+	$("#flow").text(e.pageX + ", " + e.pageY);
+});
+
 $(".action").livequery(function(){
     $(this).sortable();
 });
