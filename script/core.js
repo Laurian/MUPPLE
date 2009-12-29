@@ -117,12 +117,13 @@ var M = (function() {
 							
 							$("#empty", document).remove();
 							
-							var t = $("#tab", document).clone();
+							var t = $("#tab div.tab", document).clone();
 							$("#main", document).append(t);
 							t.autoRender({
 								title: $("title", tab).text()
 							});
 							
+							//console.log($("html", document).html());
 							
 							
 						});
@@ -154,7 +155,6 @@ var M = (function() {
 		},
 		
 		loadUILibs:	function(document, callback) {
-			//TODO: detect and reuse existing jQuery, see http://jetpackgallery.mozillalabs.com/jetpacks/154
 			with (M) {
 				loadScript(base + "script/lib/jquery-ui-1.7.2.custom.min.js", document, function() {
 					loadScript(base + "script/lib/jquery.text-overflow.js", document, function() {
@@ -181,7 +181,24 @@ var M = (function() {
 			style.media 	= "screen";
 			$(style).bind("load", callback);
 			document.getElementsByTagName("head")[0].appendChild(style);
-		}
+		},
+		
+		xptrService:	function() {
+			var xptrService;
+			
+			try {
+				xptrService = Components.classes["@mozilla.org/xpointer-service;1"].getService();
+				xptrService = xptrService.QueryInterface(Components.interfaces.nsIXPointerService);
+			} catch (ignored) {}
+			
+			/*if (!xptrService) {
+				$.get(M.base + "script/lib/nsXPointerService.js", function(data, status) {
+					eval(data);
+				});
+			}*/
+			
+			return xptrService;
+		}()
 	};
 })();
 
