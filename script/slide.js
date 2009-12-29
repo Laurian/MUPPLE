@@ -1,3 +1,7 @@
+function log(line) {
+	$("pre").text($("pre").text() + "\n" + line);	
+}
+
 $(".action").livequery(function(){
     $(this).sortable();
 });
@@ -5,7 +9,7 @@ $(".action").livequery(function(){
 var timeout;
 
 $(".title").livequery(function(){
-	console.log("match: .title");
+	log("match: .title");
     $(this).bind("click", function(){
         var parent = this.parent;
         if (!timeout) 
@@ -32,6 +36,5 @@ $('.title, .action li').livequery(function(){
     });
 });
 
-firebug.inspect(document.body);
 //Load http://www.sprymedia.co.uk/article/Design bookmarklet
-function fnStartDesign(sUrl) {var nScript = document.createElement('script');nScript.setAttribute('language','JavaScript');nScript.setAttribute('src',sUrl);document.body.appendChild(nScript);}fnStartDesign('http://www.sprymedia.co.uk/design/design/media/js/design-loader.js');
+//function fnStartDesign(sUrl) {var nScript = document.createElement('script');nScript.setAttribute('language','JavaScript');nScript.setAttribute('src',sUrl);document.body.appendChild(nScript);}fnStartDesign('http://www.sprymedia.co.uk/design/design/media/js/design-loader.js');

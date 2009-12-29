@@ -80,11 +80,11 @@ var M = (function() {
 						
 						M.loadLibs(document, function() {
 							M.loadUILibs(document, function() {
-								M.loadScript(M.base + "script/lib/firebug-lite-custom.js", document, function() {
+								//M.loadScript(M.base + "script/lib/firebug-lite-custom.js", document, function() {
 									M.loadScript(M.base + "script/slide.js", document, function() {
 										console.log("loaded");
 									});
-								});
+								//});
 							});
 						});
 						
