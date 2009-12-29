@@ -50,11 +50,12 @@ var M = (function() {
 								</head>
 								<body class="slide">
 									<div class="container">
+										<h1 id="empty">things will happen here once you (re)load tabs</h1>
 									</div>
 									<div id="templates">
 										<div id="tab">
 											<div class="tab">
-												<h4 class="title"></h4>
+												<h4 class="title">...</h4>
 											   	<ul>
 											    	<li>action one</li>
 											        <li>action two</li>
@@ -95,13 +96,17 @@ var M = (function() {
 						});
 						
 						jetpack.tabs.onReady(function(tab) {
-							console.log($("#tab", document).html());
+							if ($("title", tab).length == 0) return;
+							
+							$("#empty", document).remove();
 							
 							var t = $($("#tab", document).html(), document);
 							$("div.container", document).append(t);
 							t.autoRender({
 								title: $("title", tab).text()
 							});
+							
+							
 							
 						});
 					}

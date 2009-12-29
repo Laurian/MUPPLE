@@ -84,6 +84,7 @@ body.slide .added { background: #006600; color: white; }
 body.slide .removed { background: #990000; color: white; }
 body.slide div.container { width: 950px; margin: 0 auto; overflow: hidden; display: inline-block; width: 300px; }
 body.slide div.container { display: block; }
+body.slide #empty { margin-top: 20px; text-align: center; color: #dddddd; text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8); }
 body.slide div.tab { display: inline; float: left; margin-right: 10px; width: 270px; -moz-border-radius: 4px 4px 4px 4px; -moz-box-shadow: 0px 0px 5px #999999; background-color: white; margin: 8px; padding: 8px; }
 * html body.slide div.tab { overflow-x: hidden; }
 body.slide div.tab h4 { display: inline; float: left; margin-right: 10px; width: 270px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
