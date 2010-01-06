@@ -25,6 +25,7 @@ var M = (function() {
 			with (jetpack) {
 				future.import("slideBar");
 				future.import("menu");
+				future.import("selection");
 				
 				slideBar.append({
 					html:	<html	xmlns="http://www.w3.org/1999/xhtml"
@@ -173,6 +174,42 @@ var M = (function() {
 						}
 					};
 				});
+
+				menu.context.page.on("input").add(function(context) {
+					return {
+						icon:		M.base + "image/document-edit-1.png",
+				    	label:		"Add form field action",
+				    	command: 	function() {
+							var id = M.sha1(M.baseDomain(context.document.location));
+							//TODO: create widget if non-existant
+							
+							//TODO: use PURE
+							var action = $("#actions li.field", M.slide).clone()
+								.text($(context.node).attr("name"));
+							$("#" + id + " .action", M.slide).append(action);
+						}
+					};
+				});
+				
+				menu.context.page.beforeShow = function(menu, context) {
+					menu.reset();
+				  	if (jetpack.selection.text) {
+						//jetpack.selection.text
+				    	menu.add({
+							icon:		M.base + "image/bubble-1.png",
+					    	label:		"Note: " + jetpack.selection.text,
+							command: 	function() {
+								var id = M.sha1(M.baseDomain(context.document.location));
+								//TODO: create widget if non-existant
+
+								//TODO: use PURE
+								var action = $("#actions li.note", M.slide).clone()
+									.text(jetpack.selection.text);
+								$("#" + id + " .action", M.slide).append(action);
+							}
+						});
+				  	}
+				};
 
 			}
 		},
