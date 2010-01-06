@@ -67,8 +67,8 @@ var M = (function() {
 												<div class="content">
 											   		<ul class="action">
 											    		<li class="empty">
-															<p>no actions, <a href="#" class="help">show me how to add one</a></p>
-															<p>or <a href="#" class="delete">delete this group</a></p>
+															<p>no actions, <a href="http://wiki.github.com/Laurian/MUPPLE" target="_new" class="help">show me how to add one</a></p>
+															<p>or <a href="http://wiki.github.com/Laurian/MUPPLE" target="_new" class="delete">delete this group</a></p>
 														</li>
 														<li>action two</li>
 											        	<li>action three</li>

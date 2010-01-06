@@ -105,6 +105,7 @@ $("a.delete").livequery(function(){
     $(this).bind("click", function(){
 		$(this).parents(".tab").slideUp("normal", function() {
 			$(this).remove();
+			return false;
 		});
 	});
 });
