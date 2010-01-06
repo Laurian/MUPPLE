@@ -69,20 +69,20 @@ $(".container").livequery(function(){
 var timeout;
 var ignoreClick = false;
 
-$(".title").livequery(function(){
-    $(this).bind("click", function(){
+$(".title").livequery(function() {
+    $(this).bind("click", function() {
 		if (ignoreClick) {
 			ignoreClick = false;
 			return;
 		}
 		var parent = $(this).parent();
         if (!timeout) {
-			timeout = setTimeout(function(){
+			timeout = setTimeout(function() {
 			    timeout = null;
                 $(".content", parent).toggle("blind", null, 200);
             }, 200);
 		}
-    }).bind("dblclick", function(){
+    }).bind("dblclick", function() {
         if (timeout) {
             clearTimeout(timeout);
             timeout = null;
@@ -91,8 +91,8 @@ $(".title").livequery(function(){
 	$(this).ellipsis();
 });
 
-$('.title, .action li').livequery(function(){
-    $(this).editable(function(value, settings){
+$('.title, .action li').livequery(function() {
+    $(this).editable(function(value, settings) {
         $(this).effect("highlight", null, 2500);
         return value;
     }, {
@@ -101,8 +101,8 @@ $('.title, .action li').livequery(function(){
     });
 });
 
-$("a.delete").livequery(function(){
-    $(this).bind("click", function(){
+$("a.delete").livequery(function() {
+    $(this).bind("click", function() {
 		$(this).parents(".tab").slideUp("normal", function() {
 			$(this).remove();
 		});

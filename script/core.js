@@ -19,6 +19,7 @@ var M = (function() {
 		title:	"MUPPLE", 
 		base:	"http://github.com/Laurian/MUPPLE/raw/master/", 
 		//base:	"http://127.0.0.1:8000/MUPPLE/", //dev
+		slide:	null,
 		
 		run:	function() {
 			with (jetpack) {
@@ -62,7 +63,7 @@ var M = (function() {
 									</div>
 									<div id="templates">
 										<div id="tab">
-											<div class="tab">
+											<div class="tab id@id">
 												<h4 class="title">Untitled</h4>
 												<div class="content">
 											   		<ul class="action">
@@ -70,8 +71,6 @@ var M = (function() {
 															<p>no actions, <a href="http://wiki.github.com/Laurian/MUPPLE" target="_new" class="help">show me how to add one</a></p>
 															<p>or <a href="http://wiki.github.com/Laurian/MUPPLE" target="_new" class="delete">delete this group</a></p>
 														</li>
-														<li>action two</li>
-											        	<li>action three</li>
 											    	</ul>
 													<div class="bar">
 														<div class="trash">trash</div>
@@ -82,6 +81,11 @@ var M = (function() {
 												</div>
 											</div>
 										</div>
+										<ul id="actions">
+											<li class="link">link</li>
+											<li class="field">form field</li>
+											<li class="note">annotation</li>
+										</ul>
 									</div>
 									<div class="container">
 										<pre><![CDATA[ ]]></pre>
@@ -98,6 +102,7 @@ var M = (function() {
 					
 					onReady:	function(slide) {
 						var document = slide.contentDocument;
+						M.slide = document;
 						
 						M.loadLibs(document, function() {
 							M.loadUILibs(document, function() {
@@ -127,10 +132,14 @@ var M = (function() {
 						jetpack.tabs.onReady(function(tab) {
 							if ($("title", tab).length == 0) return;
 							
+							var id = M.sha1(M.baseDomain(tab.location));
+							if ($("#" + id, document).length != 0) return;
+							
 							var t = $("#tab div.tab", document).clone();
 							$("#main", document).append(t);
 							t.autoRender({
-								title: $("title", tab).text()
+								id:		id,
+								title: 	$("title", tab).text()
 							});
 							
 							//console.log($("html", document).html());
@@ -140,14 +149,31 @@ var M = (function() {
 					}
 				});
 				
-				menu.context.page.add({  
+				/*menu.context.page.add({  
 					label: "MUPPLE",  
 					icon: "http://example.com/ice-cream.png",  
 					menu: new jetpack.Menu(["Record", "Chocolate", "Pistachio", null, "None"]), 
 					command: function(menuitem) {
 						jetpack.notifications.show(menuitem.label)
 					}  
+				});*/
+				
+				menu.context.page.on("a").add(function(context) {
+					return {
+						icon:		M.base + "image/link-1.png",
+				    	label:		"Add link action",
+				    	command: 	function() {
+							var id = M.sha1(M.baseDomain(context.document.location));
+							//TODO: create widget if non-existant
+							
+							//TODO: use PURE
+							var action = $("#actions li.link", M.slide).clone()
+								.text($(context.node).text());
+							$("#" + id + " .action", M.slide).append(action);
+						}
+					};
 				});
+
 			}
 		},
 		
@@ -191,6 +217,47 @@ var M = (function() {
 			style.media 	= "screen";
 			$(style).bind("load", callback);
 			document.getElementsByTagName("head")[0].appendChild(style);
+		},
+		
+		uri:	function(uri, base) {
+			return Components.classes["@mozilla.org/network/io-service;1"]
+			            .getService(Components.interfaces.nsIIOService)
+						.newURI(uri, null, base);
+		},
+		
+		//from https://developer.mozilla.org/en/Code_snippets/URI_parsing
+		baseDomain:	function(uri) {
+			if (!(typeof(uri) == "object" 
+				&& uri instanceof Components.interfaces.nsIURI))
+				uri = M.uri(uri);
+			
+			var eTLDService = Components.classes["@mozilla.org/network/effective-tld-service;1"]
+			                  	.getService(Components.interfaces.nsIEffectiveTLDService);
+			var suffix = eTLDService.getPublicSuffix(uri);
+			var basedomain = eTLDService.getBaseDomain(uri);
+			return basedomain.substr(0, (basedomain.length - suffix.length - 1));
+		},
+		
+		// from https://developer.mozilla.org/en/nsICryptoHash
+		sha1:	function(str) {
+			var converter = Components.classes["@mozilla.org/intl/scriptableunicodeconverter"]
+								.createInstance(Components.interfaces.nsIScriptableUnicodeConverter);
+
+			converter.charset = "UTF-8";
+			var result = {};
+
+			var data = converter.convertToByteArray(str, result);
+			var ch = Components.classes["@mozilla.org/security/hash;1"]
+						.createInstance(Components.interfaces.nsICryptoHash);
+			ch.init(ch.SHA1);
+			ch.update(data, data.length);
+			var hash = ch.finish(false);
+
+			function toHexString(charCode) {
+				return ("0" + charCode.toString(16)).slice(-2);
+			}
+
+			return [toHexString(hash.charCodeAt(i)) for (i in hash)].join("");
 		},
 		
 		xptrService:	function() {

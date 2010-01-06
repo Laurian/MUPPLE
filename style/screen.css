@@ -105,6 +105,12 @@ body.slide div.tab .content { display: inline; float: left; margin-right: 10px; 
 body.slide div.tab .content ul { margin: 0; padding: 0; list-style: none; }
 body.slide div.tab .content ul li { background-image: url(../image/arrow-simple-right-2.png); background-repeat: no-repeat; background-position: 0 2px; padding-left: 20px; padding-bottom: 4px; }
 body.slide div.tab .content ul li:hover { background-image: url(../image/arrow-simple-right-1.png); }
+body.slide div.tab .content ul li.link { background-image: url(../image/link-2.png); }
+body.slide div.tab .content ul li.link:hover { background-image: url(../image/link-1.png); }
+body.slide div.tab .content ul li.field { background-image: url(../image/document-edit-2.png); }
+body.slide div.tab .content ul li.field:hover { background-image: url(../image/document-edit-1.png); }
+body.slide div.tab .content ul li.note { background-image: url(../image/bubble-2.png); }
+body.slide div.tab .content ul li.note:hover { background-image: url(../image/bubble-1.png); }
 body.slide div.tab .content ul li.empty { padding-left: 0; background-image: none //url(../image/sad-face-2.png); background-position: 100px 100px; font-style: italic; }
 body.slide div.tab .content ul li.empty:hover { color: #cccccc; }
 body.slide div.tab .content div.bar { display: inline; float: left; margin-right: 10px; width: 70px; padding-left: 80px; border-top: 1px dashed #eeeeee; padding-top: 4px; background-image: none //url(../image/trash-2.png); background-position: 0 4px; background-repeat: no-repeat; }
