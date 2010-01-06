@@ -36,18 +36,62 @@ body.slide
 
 	div.container
 		+container
-		//margin:		0
-		//padding:	0
-		width:		300px
-		
-	#empty
-		margin-top:	20px
-		text-align:	center
-		color:	#dddddd
-		text-shadow:	0 1px 0 rgba(255, 255, 255, 0.9)
-			
+		width:			300px
+		//height: 		100%
 
+	div.empty
+		margin-top:	20px
 		
+		h1
+			color:			#dddddd
+			text-shadow:	0 1px 0 rgba(255, 255, 255, 0.9)
+
+	.empty
+		display:		none
+		color:			#dddddd
+		text-shadow:	0 1px 0 rgba(255, 255, 255, 0.9)
+		text-align:	center
+		
+		a
+			color:				#cccccc
+		
+		a:hover
+			color:				#666666
+
+	.empty:first-child:last-child
+		display:	block
+
+	a.help
+		background-image: 		url(../image/question-1.png)
+		background-repeat: 		no-repeat
+		background-position: 	right
+		padding-right: 			20px
+		padding-bottom:			4px
+		
+	a.help:hover
+		background-image: 		url(../image/question-2.png)
+		
+	a.info
+		background-image: 		url(../image/info-2.png)
+		background-repeat: 		no-repeat
+		background-position: 	right
+		padding-right: 			20px
+		padding-bottom:			2px
+
+	a.info:hover
+		background-image: 		url(../image/info-1.png)
+			
+	a.delete
+		background-image: 		url(../image/x-2.png)
+		background-repeat: 		no-repeat
+		background-position: 	right
+		padding-right: 			20px
+		padding-bottom:			2px
+
+	a.delete:hover
+		background-image: 		url(../image/x-1.png)
+
+
 	div.tab
 		+column(7)
 		-moz-border-radius:	4px 4px 4px 4px
@@ -84,17 +128,73 @@ body.slide
 					background-position: 	0 2px
 					padding-left: 			20px
 					padding-bottom:			4px
-					
+				
+				li:hover
+					background-image: 		url(../image/arrow-simple-right-1.png)
+				
+				li.empty
+					padding-left: 			0
+					background-image: 		none //url(../image/sad-face-2.png)
+					background-position: 	100px 100px
+					font-style:				italic
+
+				li.empty:hover
+					//background-image: 		none //url(../image/sad-face-1.png)
+					color:	#cccccc
+
+		
 			div.bar
 				+column(2)
-				+prepend(5)
+				+prepend(2)
 				border-top:		1px dashed #eeeeee
 				padding-top:	4px
+				background-image: 		none //url(../image/trash-2.png)
+				background-position: 	0 4px
+				background-repeat: 		no-repeat
 
+				div.trash
+					background-image: 		none //url(../image/trash-2.png)
+					background-repeat: 		no-repeat
+					background-position: 	100px 100px
+					padding-left: 			18px
+					margin-left:			20px
+					//padding-bottom:			2px
+					display:				block
+					color:					white
+
+				//div.trash-active
+				//	background-image: 		url(../image/trash-2.png)
+				//	background-position: 	0 0px
+				
+				//div.trash-hover
+				//	background-image: 		url(../image/trash-1.png)
+				//	background-position: 	0 0px
+
+			//parent div
+			div.trash-active
+				background-image: 		url(../image/trash-2.png)
+				//background-position: 	0 0px
+
+			div.trash-hover
+				background-image: 		url(../image/trash-1.png)
+				//background-position: 	0 0px
+				
+			div.bar-button
+				+column(3, true)
+				
+				border-top:		1px dashed #eeeeee
+				padding-top:	4px
 				
 				button
 					+button-colors
 					+button-hover-colors
 					+button-active-colors
 					+small-button("right")
-					
+
+	div.tab:hover
+		h4
+			background-image: 		url(../image/check-circle-1.png)		
+
+	#flow
+		position:	relative
+		left:		-150px

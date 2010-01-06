@@ -16,8 +16,9 @@
 
 var M = (function() {
 	return {
-		title:	"MUPPLE",
-		base:	"http://github.com/Laurian/MUPPLE/raw/master/",
+		title:	"MUPPLE", 
+		base:	"http://github.com/Laurian/MUPPLE/raw/master/", 
+		//base:	"http://127.0.0.1:8000/MUPPLE/", //dev
 		
 		run:	function() {
 			with (jetpack) {
@@ -54,7 +55,10 @@ var M = (function() {
 								</head>
 								<body class="slide">
 									<div id="main" class="container">
-										<h1 id="empty">things will happen here once you (re)load tabs</h1>
+										<div class="empty">
+											<h1>things will happen here once you (re)load tabs</h1>
+											<p><a href="http://wiki.github.com/Laurian/MUPPLE" target="_new" class="info">About MUPPLE</a></p>
+										</div>
 									</div>
 									<div id="templates">
 										<div id="tab">
@@ -62,11 +66,17 @@ var M = (function() {
 												<h4 class="title">Untitled</h4>
 												<div class="content">
 											   		<ul class="action">
-											    		<li>action one</li>
-											        	<li>action two</li>
+											    		<li class="empty">
+															<p>no actions, <a href="#" class="help">show me how to add one</a></p>
+															<p>or <a href="#" class="delete">delete this group</a></p>
+														</li>
+														<li>action two</li>
 											        	<li>action three</li>
 											    	</ul>
 													<div class="bar">
+														<div class="trash">trash</div>
+													</div>
+													<div class="bar-button">
 														<button>Done</button>
 													</div>
 												</div>
@@ -80,10 +90,10 @@ var M = (function() {
 								</body>
 							</html>,
 					
-					width:	320,
+					width:	310,
 					
 					onSelect:	function(slide) { 
-						slide.slide(320, true);
+						slide.slide(310, true);
 					},
 					
 					onReady:	function(slide) {
@@ -111,13 +121,11 @@ var M = (function() {
 						
 						
 						jetpack.tabs.onOpen(function(tab) {
-							
+						 
 						});
 						
 						jetpack.tabs.onReady(function(tab) {
 							if ($("title", tab).length == 0) return;
-							
-							$("#empty", document).remove();
 							
 							var t = $("#tab div.tab", document).clone();
 							$("#main", document).append(t);
