@@ -159,7 +159,7 @@ var M = (function() {
 					}  
 				});*/
 				
-				menu.context.page.on("a").add(function(context) {
+				menu.context.page.on("a, a > *").add(function(context) {
 					return {
 						icon:		M.base + "image/link-1.png",
 				    	label:		"Add link action",
