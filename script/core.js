@@ -17,8 +17,8 @@
 var M = (function() {
 	return {
 		title:	"MUPPLE", 
-		//base:	"http://github.com/Laurian/MUPPLE/raw/master/", 
-		base:	"http://127.0.0.1:8888/MUPPLE/", //dev  
+		base:	"http://github.com/Laurian/MUPPLE/raw/master/", 
+		//base:	"http://127.0.0.1:8888/MUPPLE/", //dev  
 		slide:	null,
 		
 		run:	function() {
@@ -144,10 +144,10 @@ var M = (function() {
 							
 					icon:	M.base + "image/mupple-jetpack_32x32.png",
 					
-					width:	700,//310,
+					width:	310,
 					
 					onSelect:	function(slide) { 
-						slide.slide(700, true);
+						slide.slide(310, true);
 					},
 					
 					onReady:	function(slide) {
