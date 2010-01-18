@@ -141,8 +141,10 @@ var M = (function() {
 									<span id="flow"><![CDATA[ ]]></span>
 								</body>
 							</html>,
+							
+					icon:	M.base + "image/mupple-jetpack_32x32.png",
 					
-					width:	700//310,
+					width:	700,//310,
 					
 					onSelect:	function(slide) { 
 						slide.slide(700, true);
