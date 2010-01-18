@@ -17,8 +17,8 @@
 var M = (function() {
 	return {
 		title:	"MUPPLE", 
-		base:	"http://github.com/Laurian/MUPPLE/raw/master/", 
-		//base:	"http://127.0.0.1:8888/MUPPLE/", //dev
+		//base:	"http://github.com/Laurian/MUPPLE/raw/master/", 
+		base:	"http://127.0.0.1:8888/MUPPLE/", //dev  
 		slide:	null,
 		
 		run:	function() {
@@ -104,7 +104,6 @@ var M = (function() {
 								     	</div>
 									</div>
 									<div class="container" id="container">
-										<!-- -->
 										<div class="empty">
 											<h1>things will happen here once you (re)load tabs</h1>
 											<p><a href="http://wiki.github.com/Laurian/MUPPLE" target="_new" class="info">About MUPPLE</a></p>
@@ -143,10 +142,10 @@ var M = (function() {
 								</body>
 							</html>,
 					
-					width:	310,
+					width:	600,//310,
 					
 					onSelect:	function(slide) { 
-						slide.slide(310, true);
+						slide.slide(600, true);
 					},
 					
 					onReady:	function(slide) {
