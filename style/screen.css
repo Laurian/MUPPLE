@@ -82,7 +82,7 @@ body.slide .hide { display: none; }
 body.slide .highlight { background: yellow; }
 body.slide .added { background: #006600; color: white; }
 body.slide .removed { background: #990000; color: white; }
-body.slide div.container { width: 950px; margin: 0 auto; overflow: hidden; display: inline-block; width: 300px; }
+body.slide div.container { width: 950px; margin: 0 auto; overflow: hidden; display: inline-block; width: 290px; }
 body.slide div.container { display: block; }
 body.slide div.empty { margin-top: 20px; }
 body.slide div.empty h1 { color: #dddddd; text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9); }
@@ -96,6 +96,43 @@ body.slide a.info { background-image: url(../image/info-2.png); background-repea
 body.slide a.info:hover { background-image: url(../image/info-1.png); }
 body.slide a.delete { background-image: url(../image/x-2.png); background-repeat: no-repeat; background-position: right; padding-right: 20px; padding-bottom: 2px; }
 body.slide a.delete:hover { background-image: url(../image/x-1.png); }
+body.slide a.add { background-image: url(../image/doc-add-2.png); background-repeat: no-repeat; background-position: right; padding-right: 20px; padding-bottom: 2px; }
+body.slide a.add:hover { background-image: url(../image/doc-add-1.png); }
+body.slide #workflows { display: inline; float: left; margin-right: 10px; width: 270px; width: 290px; margin: 0; background: #999999; -moz-box-shadow: 0px 0px 7px #000000; }
+* html body.slide #workflows { overflow-x: hidden; }
+body.slide #workflows div.content { display: none; color: #eeeeee; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4); }
+body.slide #workflows div.content h4 { color: #eeeeee; padding-left: 12px; }
+body.slide #workflows div.content ul { margin: 0; margin-left: 8px; padding: 0; list-style: none; }
+body.slide #workflows div.content ul li { background-image: url(../image/play-1-dark.png); background-repeat: no-repeat; background-position: 0 0px; padding-left: 20px; padding-bottom: 4px; }
+body.slide #workflows div.content ul li:hover { color: white; }
+body.slide #workflows div.content ul li:hover, body.slide #workflows div.content ul .selected { background-image: url(../image/play-1.png); }
+body.slide #workflows div.content div.buttons { text-align: right; padding-top: 2px; }
+body.slide #workflows div.content div.buttons span { background-image: url(../image/question-2.png); padding-left: 20px; padding-bottom: 2px; background-repeat: no-repeat; background-position: left; }
+body.slide #workflows div.expander { text-align: center; }
+body.slide #workflows div.expander span { background-image: url(../image/arrow-box-down-1-dark.png); padding-left: 20px; padding-bottom: 2px; background-repeat: no-repeat; background-position: left; }
+body.slide #workflows div.expander-up span { background-image: url(../image/arrow-box-up-1-dark.png); }
+body.slide #workflows div.expander:hover span { background-image: url(../image/arrow-box-down-1.png); }
+body.slide #workflows div.expander-up:hover span { background-image: url(../image/arrow-box-up-1.png); }
+body.slide #workflow { display: inline; float: left; margin-right: 10px; width: 270px; margin: 4px; padding: 4px; color: #666666; text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9); }
+* html body.slide #workflow { overflow-x: hidden; }
+body.slide #workflow h3 { text-align: center; margin-bottom: 0; color: #999999; background-image: url(../image/arrow-simple-down-2.png); background-repeat: no-repeat; background-position: 0 1px; padding-left: 20px; }
+body.slide #workflow h3:hover { background-image: url(../image/arrow-simple-down-1.png); }
+body.slide #workflow h3.collapsed { background-image: url(../image/arrow-simple-right-2.png); }
+body.slide #workflow h3.collapsed:hover { background-image: url(../image/arrow-simple-right-1.png); }
+body.slide #workflow .content { display: inline; float: left; margin-right: 10px; width: 270px; margin-top: 12px; font-weight: bold; }
+* html body.slide #workflow .content { overflow-x: hidden; }
+body.slide #workflow .content ul { margin: 0; padding: 0; list-style: none; }
+body.slide #workflow .content ul li { background-image: url(../image/check-circle-2.png); background-repeat: no-repeat; background-position: 0 2px; padding-left: 20px; padding-bottom: 4px; }
+body.slide #workflow .content ul li:hover { background-image: url(../image/check-circle-1.png); }
+body.slide #workflow .content ul li.empty { background-image: none //url(../image/sad-face-2.png); background-position: 100px 100px; font-style: italic; }
+body.slide #workflow .content ul li.empty:hover { color: #cccccc; }
+body.slide #workflow .content a { color: #cccccc; }
+body.slide #workflow .content a:hover { color: #666666; }
+body.slide #workflow button { background-color: #f5f5f5; border-color: #eeeeee #dedede #dedede #eeeeee; color: #565656; display: block; display: inline; float: right; margin: 0.7em 0.5em 0.7em 0; border-width: 1px; border-style: solid; font-family: "Lucida Grande", Tahoma, Arial, Verdana, sans-serif; font-size: 100%; line-height: 130%; text-decoration: none; font-weight: bold; cursor: pointer; -moz-border-radius: 4px 4px 4px 4px; margin: 0; font-size: 10px; margin: 4px; }
+body.slide #workflow button:hover { background-color: #dff4ff; border-color: #d2f1ff #c2e1ef #c2e1ef #d2f1ff; color: #336699; }
+body.slide #workflow button:active { background-color: #6299c5; border-color: #72a9d5 #6299c5 #6299c5 #72a9d5; color: white; }
+body.slide #workflow button img { margin: 0 3px -3px 0 !important; padding: 0; border: none; width: 16px; height: 16px; float: none; }
+body.slide #workflow div.workflowtrash { color: #eeeeee; background-image: none //url(../image/trash-2.png); background-repeat: no-repeat; background-position: 100px 100px; padding-left: 18px; margin-left: 20px; display: block; text-shadow: none; }
 body.slide div.tab { display: inline; float: left; margin-right: 10px; width: 270px; -moz-border-radius: 4px 4px 4px 4px; -moz-box-shadow: 0px 0px 5px #999999; background-color: white; margin: 8px; padding: 4px; }
 * html body.slide div.tab { overflow-x: hidden; }
 body.slide div.tab h4 { display: inline; float: left; margin-right: 10px; width: 270px; width: 250px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 0; background-image: url(../image/check-circle-2.png); background-repeat: no-repeat; background-position: 0 1px; padding-left: 20px; padding-right: 10px; }
@@ -117,16 +154,16 @@ body.slide div.tab .content ul li.shot { background-image: url(../image/camera-2
 body.slide div.tab .content ul li.shot:hover { background-image: url(../image/camera-1.png); }
 body.slide div.tab .content ul li.empty { padding-left: 0; background-image: none //url(../image/sad-face-2.png); background-position: 100px 100px; font-style: italic; }
 body.slide div.tab .content ul li.empty:hover { color: #cccccc; }
-body.slide div.tab .content div.bar { display: inline; float: left; margin-right: 10px; width: 70px; padding-left: 80px; border-top: 1px dashed #eeeeee; padding-top: 4px; background-image: none //url(../image/trash-2.png); background-position: 0 4px; background-repeat: no-repeat; }
-* html body.slide div.tab .content div.bar { overflow-x: hidden; }
-body.slide div.tab .content div.bar div.trash { background-image: none //url(../image/trash-2.png); background-repeat: no-repeat; background-position: 100px 100px; padding-left: 18px; margin-left: 20px; display: block; color: white; }
-body.slide div.tab .content div.trash-active { background-image: url(../image/trash-2.png); }
-body.slide div.tab .content div.trash-hover { background-image: url(../image/trash-1.png); }
-body.slide div.tab .content div.bar-button { display: inline; float: left; margin-right: 0; width: 110px; border-top: 1px dashed #eeeeee; padding-top: 4px; }
-* html body.slide div.tab .content div.bar-button { overflow-x: hidden; }
-body.slide div.tab .content div.bar-button button { background-color: #f5f5f5; border-color: #eeeeee #dedede #dedede #eeeeee; color: #565656; display: block; display: inline; float: right; margin: 0.7em 0.5em 0.7em 0; border-width: 1px; border-style: solid; font-family: "Lucida Grande", Tahoma, Arial, Verdana, sans-serif; font-size: 100%; line-height: 130%; text-decoration: none; font-weight: bold; cursor: pointer; -moz-border-radius: 4px 4px 4px 4px; margin: 0; font-size: 10px; }
-body.slide div.tab .content div.bar-button button:hover { background-color: #dff4ff; border-color: #d2f1ff #c2e1ef #c2e1ef #d2f1ff; color: #336699; }
-body.slide div.tab .content div.bar-button button:active { background-color: #6299c5; border-color: #72a9d5 #6299c5 #6299c5 #72a9d5; color: white; }
-body.slide div.tab .content div.bar-button button img { margin: 0 3px -3px 0 !important; padding: 0; border: none; width: 16px; height: 16px; float: none; }
 body.slide div.tab:hover h4 { background-image: url(../image/check-circle-1.png); }
 body.slide #flow { position: relative; left: -150px; }
+body.slide div.bar { display: inline; float: left; margin-right: 10px; width: 70px; padding-left: 80px; border-top: 1px dashed #eeeeee; padding-top: 4px; background-image: none //url(../image/trash-2.png); background-position: 0 4px; background-repeat: no-repeat; }
+* html body.slide div.bar { overflow-x: hidden; }
+body.slide div.bar div.trash { background-image: none //url(../image/trash-2.png); background-repeat: no-repeat; background-position: 100px 100px; padding-left: 18px; margin-left: 20px; display: block; color: white; }
+body.slide div.trash-active { background-image: url(../image/trash-2.png); }
+body.slide div.trash-hover { background-image: url(../image/trash-1.png); }
+body.slide div.bar-button { display: inline; float: left; margin-right: 0; width: 110px; border-top: 1px dashed #eeeeee; padding-top: 4px; }
+* html body.slide div.bar-button { overflow-x: hidden; }
+body.slide div.bar-button button { background-color: #f5f5f5; border-color: #eeeeee #dedede #dedede #eeeeee; color: #565656; display: block; display: inline; float: right; margin: 0.7em 0.5em 0.7em 0; border-width: 1px; border-style: solid; font-family: "Lucida Grande", Tahoma, Arial, Verdana, sans-serif; font-size: 100%; line-height: 130%; text-decoration: none; font-weight: bold; cursor: pointer; -moz-border-radius: 4px 4px 4px 4px; margin: 0; font-size: 10px; }
+body.slide div.bar-button button:hover { background-color: #dff4ff; border-color: #d2f1ff #c2e1ef #c2e1ef #d2f1ff; color: #336699; }
+body.slide div.bar-button button:active { background-color: #6299c5; border-color: #72a9d5 #6299c5 #6299c5 #72a9d5; color: white; }
+body.slide div.bar-button button img { margin: 0 3px -3px 0 !important; padding: 0; border: none; width: 16px; height: 16px; float: none; }

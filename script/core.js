@@ -2,9 +2,9 @@
 @prefix : <http://purl.org/net/ns/doas#> .
 <>	a	:JavaScript;
 		:shortdesc "MUPPLE";
-		:created "2008-06-12";
+		:created "2009-12-27";
 		:release [
-			:revision "0.1";
+			:revision "0.3";
 			:created "2009-12-27"
 		];
 		:author [
@@ -17,8 +17,8 @@
 var M = (function() {
 	return {
 		title:	"MUPPLE", 
-		base:	"http://github.com/Laurian/MUPPLE/raw/master/", 
-		//base:	"http://127.0.0.1:8000/MUPPLE/", //dev
+		//base:	"http://github.com/Laurian/MUPPLE/raw/master/", 
+		base:	"http://127.0.0.1:8888/MUPPLE/", //dev
 		slide:	null,
 		
 		run:	function() {
@@ -57,6 +57,54 @@ var M = (function() {
 								</head>
 								<body class="slide">
 									<div id="main" class="container">
+										<!-- -->
+										<div id="workflows">
+											<div class="content">
+								        		<div class="buttons">
+								        			<span title="help"></span>
+								        		</div>
+												<h4>Open Workflows</h4>
+												<ul>
+								        			<li>Collaborative Paper Writing</li>
+								        			<li>Setting up a Git repository</li>
+								        			<li class="selected">Create a JetPack</li>
+								        		</ul>
+											</div>
+											<div class="expander">
+												<span title="expand/collapse"></span>
+											</div>
+								        </div>
+										<!-- -->
+										<div id="workflow">
+								            <h3>Collaborative thingie in 7 steps!</h3>
+											<div class="content">
+												<ul class="workflows">
+													<li class="empty">
+														<p>
+															no tasks, <a href="#" class="help">show me how to add one</a>
+														</p>
+														<p>
+															or <a href="#" class="delete">delete this workflow</a>
+														</p>
+													</li>
+								                	<li class="link">link</li>
+								                	<li class="field">form field</li>
+								                	<li class="note">Mozilla is a global open source community with a rich technical diversity. Its products are used by hundreds of millions of people around the world in many different languages. The size and complexity of Mozilla can seem overwhelming to new contributors, and especially to students, who are still learning many of the skills necessary to work at this scale. However, this also makes Mozilla a good choice for those seeking to do real-world project work. </li>
+													<li class="pic">picture</li>
+													<li class="shot">snapshot</li>
+								                </ul>
+
+												<div class="bar">
+													<div class="workflowtrash">trash</div>
+												</div>
+												<div class="bar-button">
+													<a href="#" class="add">new task (set)</a>
+												</div>
+											</div>
+								     	</div>
+									</div>
+									<div class="container" id="container">
+										<!-- -->
 										<div class="empty">
 											<h1>things will happen here once you (re)load tabs</h1>
 											<p><a href="http://wiki.github.com/Laurian/MUPPLE" target="_new" class="info">About MUPPLE</a></p>

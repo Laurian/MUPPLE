@@ -6,6 +6,60 @@ $("body").mousemove(function(e) {
 	$("#flow").text(e.pageX + ", " + e.pageY);
 });
 
+$(".workflows").livequery(function(){
+    $(this).sortable({
+		revert: 		true,
+		dropOnEmpty:	true,
+		cancel: 		'li.empty'
+	});
+});
+
+var expanded = false;
+$(".expander").click(function() {
+	if (expanded) {
+		$("#workflows .content").slideUp();
+		$(".expander").removeClass("expander-up");
+	} else {
+		$("#workflows .content").slideDown();		
+		$(".expander").addClass("expander-up");
+	}
+	expanded = !expanded;
+});
+
+$(".workflowtrash").livequery(function(){
+	$(this).droppable({
+		accept: 'ul.workflows > li',
+		/*accept: function(el) {
+			if ($(el)[0].localName != "li") {
+				return false;
+			}
+			var p1 = $(this).parents(".workflow");
+			var p2 = $(el).parents(".workflow");
+			return p1.length > 0 && p2.length > 0 && p1[0] == p2[0];
+		},*/
+		activeClass: 'trash-active',
+		hoverClass: 'trash-hover',
+		drop:	function(event, ui) {
+			$(ui.draggable).remove();
+			$(this).parents(".bar").removeClass("trash-hover");
+			$(this).parents(".bar").removeClass("trash-active");
+		},
+		over:	function(event, ui) {
+			$(this).parents(".bar").addClass("trash-hover");
+		},
+		out:	function(event, ui) {
+			$(this).parents(".bar").removeClass("trash-hover");
+		},
+		activate:	function(event, ui) {
+			$(this).parents(".bar").addClass("trash-active");
+		},
+		deactivate:	function(event, ui) {
+			$(this).parents(".bar").removeClass("trash-active");
+		}		
+	});
+});
+
+
 $(".action").livequery(function(){
     $(this).sortable({
 		//placeholder: 	'ui-state-highlight',
@@ -19,6 +73,7 @@ $(".action").livequery(function(){
 		//}
 	});
 });
+
 
 $(".trash").livequery(function(){
 	$(this).droppable({
@@ -54,7 +109,7 @@ $(".trash").livequery(function(){
 });
 
 
-$(".container").livequery(function(){
+$("#container").livequery(function(){
     $(this).sortable({
 		//placeholder: 'ui-state-highlight',
 		scroll:	true,
@@ -68,6 +123,38 @@ $(".container").livequery(function(){
 
 var timeout;
 var ignoreClick = false;
+
+var workflowExpanded = true;
+
+$("#workflow h3").livequery(function() {
+    $(this).bind("click", function() {
+		if (ignoreClick) {
+			ignoreClick = false;
+			return;
+		}
+		var parent = $(this).parent();
+        if (!timeout) {
+			timeout = setTimeout(function() {
+			    timeout = null;
+                //$(".content", parent).toggle("blind", null, 200);
+				if (workflowExpanded) {
+					$(".content", parent).slideUp();
+					$("#workflow h3").addClass("collapsed");
+				} else {
+					$(".content", parent).slideDown();
+					$("#workflow h3").removeClass("collapsed");
+				}
+				workflowExpanded = !workflowExpanded;
+            }, 200);
+		}
+    }).bind("dblclick", function() {
+        if (timeout) {
+            clearTimeout(timeout);
+            timeout = null;
+        }
+    });
+});
+
 
 $(".title").livequery(function() {
     $(this).bind("click", function() {
@@ -91,14 +178,22 @@ $(".title").livequery(function() {
 	$(this).ellipsis();
 });
 
-$('.title, .action li').livequery(function() {
+$('.title, .action li, #workflow h3, ul.workflows > li').livequery(function() {
+	var type = ($(this).text().length > 50)?"textarea":"text";
+	
     $(this).editable(function(value, settings) {
         $(this).effect("highlight", null, 2500);
         return value;
     }, {
-        event: 'dblclick',
-        style: 'inherit'
+        event: 	'dblclick',
+        style: 	'inherit',
+		type:	type,
+		onblur:	"submit"
     });
+});
+
+$('li.note').livequery(function() {
+	$(this).expander();
 });
 
 $("a.delete").livequery(function() {
