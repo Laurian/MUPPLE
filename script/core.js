@@ -142,10 +142,10 @@ var M = (function() {
 								</body>
 							</html>,
 					
-					width:	600,//310,
+					width:	310,
 					
 					onSelect:	function(slide) { 
-						slide.slide(600, true);
+						slide.slide(310, true);
 					},
 					
 					onReady:	function(slide) {
