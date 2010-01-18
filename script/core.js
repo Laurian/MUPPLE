@@ -17,8 +17,8 @@
 var M = (function() {
 	return {
 		title:	"MUPPLE", 
-		//base:	"http://github.com/Laurian/MUPPLE/raw/master/", 
-		base:	"http://127.0.0.1:8888/MUPPLE/", //dev
+		base:	"http://github.com/Laurian/MUPPLE/raw/master/", 
+		//base:	"http://127.0.0.1:8888/MUPPLE/", //dev
 		slide:	null,
 		
 		run:	function() {
