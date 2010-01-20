@@ -3241,3 +3241,6 @@ function(compMgr)
 function NSGetModule(compMgr, fileSpec) {
     return nsXPointerServiceModule;
 }
+
+//////
+M.xptrService = new XPointerService();
