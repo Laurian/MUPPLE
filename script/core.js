@@ -18,7 +18,7 @@ var M = (function() {
 	return {
 		title:	"MUPPLE", 
 		//base:	"http://github.com/Laurian/MUPPLE/raw/master/", 
-		base:	"http://127.0.0.1:8888/MUPPLE/", //dev  
+		base:	"http://127.0.0.1:8888/MUPPLE/", //dev   
 		slide:	null,
 		
 		run:	function() {
@@ -165,14 +165,16 @@ var M = (function() {
 						});
 						
 						// "import" PURE
-						/*$.get(M.base + "script/lib/pure_packed.js", function(data, status) {
+						$.get(M.base + "script/lib/pure_packed.js", function(data, status) {
 							eval(data);
 							//$("p.foo", document).autoRender({foo: "loaded!"});
+						});
+						
+						/*M.import(M.base + "script/lib/pure_packed.js", function() {
+							console.log("PURE imported")
 						});*/
 						
-						M.import(M.base + "script/lib/pure_packed.js", function() {
-							console.log("PURE imported")
-						});
+						M.xptrServiceInit();
 						
 						/*$("h1", slide.contentDocument).bind("click", function() {
 							console.log("click");
@@ -259,6 +261,10 @@ var M = (function() {
 								var action = $("#actions li.note", M.slide).clone()
 									.text(jetpack.selection.text);
 								$("#" + id + " .action", M.slide).append(action);
+								
+								console.log(M.xptrService.createXPointerFromSelection(
+								    jetpack.tabs.focused.contentWindow.getSelection(), 
+								    jetpack.tabs.focused.contentDocument));
 							}
 						});
 				  	}
@@ -357,24 +363,29 @@ var M = (function() {
 			return [toHexString(hash.charCodeAt(i)) for (i in hash)].join("");
 		},
 		
-		xptrService:	function() {
+		xptrService:	null,
+		
+		xptrServiceInit:	function() {
 			var xptrService;
 			
 			try {
 				xptrService = Components.classes["@mozilla.org/xpointer-service;1"].getService();
 				xptrService = xptrService.QueryInterface(Components.interfaces.nsIXPointerService);
-			} catch (ignored) {}
+				M.xptrService = xptrService;
+			} catch (ignored) {
+				console.log("no nsIXPointerService");
+			}
 			
 			if (!xptrService) {
-				// how can we have this blocking?
+				// how can we have this blocking? narrativejs-like?
 				M.import(M.base + "script/lib/nsXPointerService.js", function() {
-					M.xptrService = new XPointerService();
+					//M.xptrService = new XPointerService();
 					console.log("xpointerlib imported");
+					//M.xptrService = new XPointerService();
 				});
 			}
 			
-			return xptrService;
-		}()
+		}
 	};
 })();
 
