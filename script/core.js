@@ -365,11 +365,13 @@ var M = (function() {
 				xptrService = xptrService.QueryInterface(Components.interfaces.nsIXPointerService);
 			} catch (ignored) {}
 			
-			/*if (!xptrService) {
-				$.get(M.base + "script/lib/nsXPointerService.js", function(data, status) {
-					eval(data);
+			if (!xptrService) {
+				// how can we have this blocking?
+				M.import(M.base + "script/lib/nsXPointerService.js", function() {
+					M.xptrService = new XPointerService();
+					console.log("xpointerlib imported");
 				});
-			}*/
+			}
 			
 			return xptrService;
 		}()
