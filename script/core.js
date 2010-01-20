@@ -17,15 +17,20 @@
 var M = (function() {
 	return {
 		title:	"MUPPLE", 
-		//base:	"http://github.com/Laurian/MUPPLE/raw/master/", 
-		base:	"http://127.0.0.1:8888/MUPPLE/", //dev   
+		base:	"http://github.com/Laurian/MUPPLE/raw/master/", 
+		//base:	"http://127.0.0.1:8888/MUPPLE/", //dev
 		slide:	null,
+		storage:	null,
 		
 		run:	function() {
 			with (jetpack) {
 				future.import("slideBar");
 				future.import("menu");
 				future.import("selection");
+				future.import("storage.simple");
+		
+				storage = storage.simple;
+				console.log(storage);
 				
 				slideBar.append({
 					html:	<html	xmlns="http://www.w3.org/1999/xhtml"
@@ -65,9 +70,8 @@ var M = (function() {
 								        		</div>
 												<h4>Open Workflows</h4>
 												<ul>
-								        			<li>Collaborative Paper Writing</li>
-								        			<li>Setting up a Git repository</li>
-								        			<li class="selected">Create a JetPack</li>
+								        			<li>n/a</li>
+								        			<li class="selected">Current Workflow</li>
 								        		</ul>
 											</div>
 											<div class="expander">
@@ -76,7 +80,7 @@ var M = (function() {
 								        </div>
 										<!-- -->
 										<div id="workflow">
-								            <h3>Collaborative thingie in 7 steps!</h3>
+								            <h3>Current Workflow</h3>
 											<div class="content">
 												<ul class="workflows">
 													<li class="empty">
@@ -87,11 +91,7 @@ var M = (function() {
 															or <a href="#" class="delete">delete this workflow</a>
 														</p>
 													</li>
-								                	<li class="link">link</li>
-								                	<li class="field">form field</li>
-								                	<li class="note">Mozilla is a global open source community with a rich technical diversity. Its products are used by hundreds of millions of people around the world in many different languages. The size and complexity of Mozilla can seem overwhelming to new contributors, and especially to students, who are still learning many of the skills necessary to work at this scale. However, this also makes Mozilla a good choice for those seeking to do real-world project work. </li>
-													<li class="pic">picture</li>
-													<li class="shot">snapshot</li>
+								                	<li class="link">Current task set</li>
 								                </ul>
 
 												<div class="bar">
@@ -192,7 +192,7 @@ var M = (function() {
 							if ($("#" + id, document).length != 0) return;
 							
 							var t = $("#tab div.tab", document).clone();
-							$("#main", document).append(t);
+							$("#container", document).append(t);
 							t.autoRender({
 								id:		id,
 								title: 	$("title", tab).text()
@@ -200,8 +200,10 @@ var M = (function() {
 							
 							//console.log($("html", document).html());
 							
-							
+							M.save();
 						});
+						
+						M.load();
 					}
 				});
 				
@@ -226,6 +228,8 @@ var M = (function() {
 							var action = $("#actions li.link", M.slide).clone()
 								.text($(context.node).text());
 							$("#" + id + " .action", M.slide).append(action);
+							
+							M.save();
 						}
 					};
 				});
@@ -242,6 +246,8 @@ var M = (function() {
 							var action = $("#actions li.field", M.slide).clone()
 								.text($(context.node).attr("name"));
 							$("#" + id + " .action", M.slide).append(action);
+							
+							M.save();
 						}
 					};
 				});
@@ -265,12 +271,24 @@ var M = (function() {
 								console.log(M.xptrService.createXPointerFromSelection(
 								    jetpack.tabs.focused.contentWindow.getSelection(), 
 								    jetpack.tabs.focused.contentDocument));
+								
+								M.save();
 							}
 						});
 				  	}
 				};
 
 			}
+		},
+		
+		save:	function() {
+			jetpack.future.import("storage.simple");
+			jetpack.storage.simple.test = $("#container", M.slide).html();
+		},
+		
+		load:	function() {
+			jetpack.future.import("storage.simple");
+			$("#container", M.slide).html(jetpack.storage.simple.test);
 		},
 		
 		loadLibs:	function(document, callback) {
@@ -372,9 +390,7 @@ var M = (function() {
 				xptrService = Components.classes["@mozilla.org/xpointer-service;1"].getService();
 				xptrService = xptrService.QueryInterface(Components.interfaces.nsIXPointerService);
 				M.xptrService = xptrService;
-			} catch (ignored) {
-				console.log("no nsIXPointerService");
-			}
+			} catch (ignored) {}
 			
 			if (!xptrService) {
 				// how can we have this blocking? narrativejs-like?
