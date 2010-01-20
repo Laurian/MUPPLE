@@ -17,8 +17,8 @@
 var M = (function() {
 	return {
 		title:	"MUPPLE", 
-		base:	"http://github.com/Laurian/MUPPLE/raw/master/", 
-		//base:	"http://127.0.0.1:8888/MUPPLE/", //dev  
+		//base:	"http://github.com/Laurian/MUPPLE/raw/master/", 
+		base:	"http://127.0.0.1:8888/MUPPLE/", //dev  
 		slide:	null,
 		
 		run:	function() {
@@ -165,9 +165,13 @@ var M = (function() {
 						});
 						
 						// "import" PURE
-						$.get(M.base + "script/lib/pure_packed.js", function(data, status) {
+						/*$.get(M.base + "script/lib/pure_packed.js", function(data, status) {
 							eval(data);
 							//$("p.foo", document).autoRender({foo: "loaded!"});
+						});*/
+						
+						M.import(M.base + "script/lib/pure_packed.js", function() {
+							console.log("PURE imported")
 						});
 						
 						/*$("h1", slide.contentDocument).bind("click", function() {
@@ -303,6 +307,13 @@ var M = (function() {
 			style.media 	= "screen";
 			$(style).bind("load", callback);
 			document.getElementsByTagName("head")[0].appendChild(style);
+		},
+		
+		import:	function(src, callback) {
+			$.get(src, function(data, status) {
+				eval(data);
+				callback();
+			});
 		},
 		
 		uri:	function(uri, base) {
