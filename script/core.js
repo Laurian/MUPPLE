@@ -14,271 +14,244 @@
 		:license <http://www.apache.org/licenses/LICENSE-2.0> .
 */
 
-var M = (function() {
-	return {
+with (jetpack.future) {
+	import("slideBar");
+	import("menu");
+	import("selection");
+	import("storage.simple");
+}
+
+var M =	{
 		title:	"MUPPLE", 
-		base:	"http://github.com/Laurian/MUPPLE/raw/master/", 
-		//base:	"http://127.0.0.1:8888/MUPPLE/", //dev
-		slide:	null,
-		storage:	null,
+		//base:	"http://github.com/Laurian/MUPPLE/raw/master/", 
+		base:	"http://127.0.0.1:8888/MUPPLE/", //dev  
 		
 		run:	function() {
-			with (jetpack) {
-				future.import("slideBar");
-				future.import("menu");
-				future.import("selection");
-				future.import("storage.simple");
-		
-				storage = storage.simple;
-				console.log(storage);
 				
-				slideBar.append({
-					html:	<html	xmlns="http://www.w3.org/1999/xhtml"
-					      			xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-					      			version="XHTML+RDFa 1.0"
-					      			xml:lang="en-GB">
-								<head profile="http://www.w3.org/1999/xhtml/vocab http://www.w3.org/2003/g/data-view http://ns.inria.fr/grddl/rdfa/ http://purl.org/uF/2008/03/">
-									<link href="http://www.w3.org/2003/g/glean-profile" rel="transformation" />
-								  	<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
-									<base href={M.base} />
-									<title>{M.title}</title>
-									<script type="text/javascript">var base = "{M.base}";</script>
-									<script type="text/javascript"><![CDATA[
-										function init() {
-											alert($);
-											alert($().rdf().databank.dump({format:'application/rdf+xml', serialize: true}));
-										}
-									]]></script>
-									<link href="style/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
-									<link href="style/smoothness/jquery-ui-1.7.2.custom.css" media="screen, projection" rel="stylesheet" type="text/css" />
-									<style type="text/css"><![CDATA[
-										#templates	{
-											display:	none;
-										}
-										#flow {
-											color:	white;
-										}
-									]]></style>
-								</head>
-								<body class="slide">
-									<div id="main" class="container">
-										<!-- -->
-										<div id="workflows">
-											<div class="content">
-								        		<div class="buttons">
-								        			<span title="help"></span>
-								        		</div>
-												<h4>Open Workflows</h4>
-												<ul>
-								        			<li>n/a</li>
-								        			<li class="selected">Current Workflow</li>
-								        		</ul>
-											</div>
-											<div class="expander">
-												<span title="expand/collapse"></span>
-											</div>
-								        </div>
-										<!-- -->
-										<div id="workflow">
-								            <h3>Current Workflow</h3>
-											<div class="content">
-												<ul class="workflows">
-													<li class="empty">
-														<p>
-															no tasks, <a href="#" class="help">show me how to add one</a>
-														</p>
-														<p>
-															or <a href="#" class="delete">delete this workflow</a>
-														</p>
-													</li>
-								                	<li class="link">Current task set</li>
-								                </ul>
+			jetpack.slideBar.append({
+				icon:	M.base + "image/mupple-jetpack_32x32.png",
+				
+				width:	310,
+				
+				html:	<html	xmlns="http://www.w3.org/1999/xhtml"
+				      			xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+				      			version="XHTML+RDFa 1.0"
+				      			xml:lang="en-GB">
+							<head profile="http://www.w3.org/1999/xhtml/vocab http://www.w3.org/2003/g/data-view http://ns.inria.fr/grddl/rdfa/ http://purl.org/uF/2008/03/">
+								<link href="http://www.w3.org/2003/g/glean-profile" rel="transformation" />
+							  	<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+								<base href={M.base} />
+								<title>{M.title}</title>
+								<script type="text/javascript">var base = "{M.base}";</script>
+								<script type="text/javascript"><![CDATA[
+									function init() {
+										alert($().rdf().databank.dump({format:'application/rdf+xml', serialize: true}));
+									}
+								]]></script>
+								<link href="style/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+								<link href="style/smoothness/jquery-ui-1.7.2.custom.css" media="screen, projection" rel="stylesheet" type="text/css" />
+								<style type="text/css"><![CDATA[
+									#templates	{
+										display:	none;
+									}
+									#flow {
+										color:	white;
+									}
+								]]></style>
+							</head>
+							<body class="slide">
+								<div id="main" class="container">
+									<!-- -->
+									<div id="workflows">
+										<div class="content">
+							        		<div class="buttons">
+							        			<span title="help"></span>
+							        		</div>
+											<h4>Open Workflows</h4>
+											<ul>
+							        			<li>n/a</li>
+							        			<li class="selected">Current Workflow</li>
+							        		</ul>
+										</div>
+										<div class="expander">
+											<span title="expand/collapse"></span>
+										</div>
+							        </div>
+									<!-- -->
+									<div id="workflow">
+							            <h3>Current Workflow3</h3>
+										<div class="content">
+											<ul class="workflows">
+												<li class="empty">
+													<p>
+														no tasks, <a href="#" class="help">show me how to add one</a>
+													</p>
+													<p>
+														or <a href="#" class="delete">delete this workflow</a>
+													</p>
+												</li>
+							                	<li class="link">Current task set</li>
+							                </ul>
 
+											<div class="bar">
+												<div class="workflowtrash">trash</div>
+											</div>
+											<div class="bar-button">
+												<a href="#" class="add">new task (set)</a>
+											</div>
+										</div>
+							     	</div>
+								</div>
+								<div class="container" id="container">
+									<div class="empty">
+										<h1>things will happen here once you (re)load tabs</h1>
+										<p><a href="http://wiki.github.com/Laurian/MUPPLE" target="_new" class="info">About MUPPLE</a></p>
+									</div>
+								</div>
+								<div id="templates">
+									<div id="tab">
+										<div class="tab id@id">
+											<h4 class="title">Untitled</h4>
+											<div class="content">
+										   		<ul class="action">
+										    		<li class="empty">
+														<p>no actions, <a href="http://wiki.github.com/Laurian/MUPPLE" target="_new" class="help">show me how to add one</a></p>
+														<p>or <a href="http://wiki.github.com/Laurian/MUPPLE" target="_new" class="delete">delete this group</a></p>
+													</li>
+										    	</ul>
 												<div class="bar">
-													<div class="workflowtrash">trash</div>
+													<div class="trash">trash</div>
 												</div>
 												<div class="bar-button">
-													<a href="#" class="add">new task (set)</a>
-												</div>
-											</div>
-								     	</div>
-									</div>
-									<div class="container" id="container">
-										<div class="empty">
-											<h1>things will happen here once you (re)load tabs</h1>
-											<p><a href="http://wiki.github.com/Laurian/MUPPLE" target="_new" class="info">About MUPPLE</a></p>
-										</div>
-									</div>
-									<div id="templates">
-										<div id="tab">
-											<div class="tab id@id">
-												<h4 class="title">Untitled</h4>
-												<div class="content">
-											   		<ul class="action">
-											    		<li class="empty">
-															<p>no actions, <a href="http://wiki.github.com/Laurian/MUPPLE" target="_new" class="help">show me how to add one</a></p>
-															<p>or <a href="http://wiki.github.com/Laurian/MUPPLE" target="_new" class="delete">delete this group</a></p>
-														</li>
-											    	</ul>
-													<div class="bar">
-														<div class="trash">trash</div>
-													</div>
-													<div class="bar-button">
-														<button>Done</button>
-													</div>
+													<button>Done</button>
 												</div>
 											</div>
 										</div>
-										<ul id="actions">
-											<li class="link">link</li>
-											<li class="field">form field</li>
-											<li class="note">annotation</li>
-										</ul>
 									</div>
-									<div class="container">
-										<pre><![CDATA[ ]]></pre>
-									</div>
-									<span id="flow"><![CDATA[ ]]></span>
-								</body>
-							</html>,
-							
-					icon:	M.base + "image/mupple-jetpack_32x32.png",
+									<ul id="actions">
+										<li class="link">link</li>
+										<li class="field">form field</li>
+										<li class="note">annotation</li>
+									</ul>
+								</div>
+								<div class="container">
+									<pre><![CDATA[ ]]></pre>
+								</div>
+								<span id="flow"><![CDATA[ ]]></span>
+							</body>
+						</html>,
+										
+				onSelect:	function(slide) { 
+					slide.slide(310, true);
+				},
+				
+				onReady:	function(slide) {
+					var document = slide.contentDocument;
+					M.slide = document;
 					
-					width:	310,
-					
-					onSelect:	function(slide) { 
-						slide.slide(310, true);
-					},
-					
-					onReady:	function(slide) {
-						var document = slide.contentDocument;
-						M.slide = document;
-						
-						M.loadLibs(document, function() {
-							M.loadUILibs(document, function() {
-								//M.loadScript(M.base + "script/lib/firebug-lite-custom.js", document, function() {
-									M.loadScript(M.base + "script/slide.js", document, function() {
-										console.log("loaded");
-									});
-								//});
+					M.loadLibs(document, function() {
+						M.loadUILibs(document, function() {
+							M.loadScript(M.base + "script/slide.js", document, function() {
+								console.log("loaded");
 							});
 						});
+					});
+					
+					// "import" PURE
+					$.get(M.base + "script/lib/pure_packed.js", function(data, status) {
+						eval(data);
+					});
+					
+					M.xptrServiceInit();
+					
+					
+					jetpack.tabs.onOpen(function(tab) {
+					 
+					});
+					
+					jetpack.tabs.onReady(function(tab) {
+						if ($("title", tab).length == 0) return;
 						
-						// "import" PURE
-						$.get(M.base + "script/lib/pure_packed.js", function(data, status) {
-							eval(data);
-							//$("p.foo", document).autoRender({foo: "loaded!"});
+						var id = M.sha1(M.baseDomain(tab.location));
+						if ($("#" + id, document).length != 0) return;
+						
+						var t = $("#tab div.tab", document).clone();
+						$("#container", document).append(t);
+						t.autoRender({
+							id:		id,
+							title: 	$("title", tab).text()
 						});
 						
-						/*M.import(M.base + "script/lib/pure_packed.js", function() {
-							console.log("PURE imported")
-						});*/
 						
-						M.xptrServiceInit();
+						M.save();
+					});
+					
+					M.load();
+				}
+			});
+			
+			jetpack.menu.context.page.on("a, a > *").add(function(context) {
+				return {
+					icon:		M.base + "image/link-1.png",
+			    	label:		"Add link action",
+			    	command: 	function() {
+						var id = M.sha1(M.baseDomain(context.document.location));
+						//TODO: create widget if non-existant
 						
-						/*$("h1", slide.contentDocument).bind("click", function() {
-							console.log("click");
-						});*/
+						//TODO: use PURE
+						var action = $("#actions li.link", M.slide).clone()
+							.text($(context.node).text());
+						$("#" + id + " .action", M.slide).append(action);
 						
-						
-						jetpack.tabs.onOpen(function(tab) {
-						 
-						});
-						
-						jetpack.tabs.onReady(function(tab) {
-							if ($("title", tab).length == 0) return;
-							
-							var id = M.sha1(M.baseDomain(tab.location));
-							if ($("#" + id, document).length != 0) return;
-							
-							var t = $("#tab div.tab", document).clone();
-							$("#container", document).append(t);
-							t.autoRender({
-								id:		id,
-								title: 	$("title", tab).text()
-							});
-							
-							//console.log($("html", document).html());
-							
-							M.save();
-						});
-						
-						M.load();
+						M.save();
 					}
-				});
-				
-				/*menu.context.page.add({  
-					label: "MUPPLE",  
-					icon: "http://example.com/ice-cream.png",  
-					menu: new jetpack.Menu(["Record", "Chocolate", "Pistachio", null, "None"]), 
-					command: function(menuitem) {
-						jetpack.notifications.show(menuitem.label)
-					}  
-				});*/
-				
-				menu.context.page.on("a, a > *").add(function(context) {
-					return {
-						icon:		M.base + "image/link-1.png",
-				    	label:		"Add link action",
-				    	command: 	function() {
-							var id = M.sha1(M.baseDomain(context.document.location));
-							//TODO: create widget if non-existant
-							
-							//TODO: use PURE
-							var action = $("#actions li.link", M.slide).clone()
-								.text($(context.node).text());
-							$("#" + id + " .action", M.slide).append(action);
-							
-							M.save();
-						}
-					};
-				});
-
-				menu.context.page.on("input").add(function(context) {
-					return {
-						icon:		M.base + "image/document-edit-1.png",
-				    	label:		"Add form field action",
-				    	command: 	function() {
-							var id = M.sha1(M.baseDomain(context.document.location));
-							//TODO: create widget if non-existant
-							
-							//TODO: use PURE
-							var action = $("#actions li.field", M.slide).clone()
-								.text($(context.node).attr("name"));
-							$("#" + id + " .action", M.slide).append(action);
-							
-							M.save();
-						}
-					};
-				});
-				
-				menu.context.page.beforeShow = function(menu, context) {
-					menu.reset();
-				  	if (jetpack.selection.text) {
-						//jetpack.selection.text
-				    	menu.add({
-							icon:		M.base + "image/bubble-1.png",
-					    	label:		"Note: " + jetpack.selection.text,
-							command: 	function() {
-								var id = M.sha1(M.baseDomain(context.document.location));
-								//TODO: create widget if non-existant
-
-								//TODO: use PURE
-								var action = $("#actions li.note", M.slide).clone()
-									.text(jetpack.selection.text);
-								$("#" + id + " .action", M.slide).append(action);
-								
-								console.log(M.xptrService.createXPointerFromSelection(
-								    jetpack.tabs.focused.contentWindow.getSelection(), 
-								    jetpack.tabs.focused.contentDocument));
-								
-								M.save();
-							}
-						});
-				  	}
 				};
+			});
 
-			}
+			jetpack.menu.context.page.on("input").add(function(context) {
+				return {
+					icon:		M.base + "image/document-edit-1.png",
+			    	label:		"Add form field action",
+			    	command: 	function() {
+						var id = M.sha1(M.baseDomain(context.document.location));
+						//TODO: create widget if non-existant
+						
+						//TODO: use PURE
+						var action = $("#actions li.field", M.slide).clone()
+							.text($(context.node).attr("name"));
+						$("#" + id + " .action", M.slide).append(action);
+						
+						M.save();
+					}
+				};
+			});
+			
+			jetpack.menu.context.page.beforeShow = function(menu, context) {
+				menu.reset();
+			  	if (jetpack.selection.text) {
+					//jetpack.selection.text
+			    	menu.add({
+						icon:		M.base + "image/bubble-1.png",
+				    	label:		"Note: " + jetpack.selection.text,
+						command: 	function() {
+							var id = M.sha1(M.baseDomain(context.document.location));
+							//TODO: create widget if non-existant
+
+							//TODO: use PURE
+							var action = $("#actions li.note", M.slide).clone()
+								.text(jetpack.selection.text);
+							$("#" + id + " .action", M.slide).append(action);
+							
+							console.log(M.xptrService.createXPointerFromSelection(
+							    jetpack.tabs.focused.contentWindow.getSelection(), 
+							    jetpack.tabs.focused.contentDocument));
+							
+							M.save();
+						}
+					});
+			  	}
+			};
+
 		},
 		
 		save:	function() {
@@ -403,6 +376,7 @@ var M = (function() {
 			
 		}
 	};
-})();
+
+
 
 M.run();
