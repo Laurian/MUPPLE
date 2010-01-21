@@ -23,14 +23,14 @@ with (jetpack.future) {
 
 
 //const base = "http://github.com/Laurian/MUPPLE/raw/master/";
-const base = "http://127.0.0.1:8888/MUPPLE/";
+const base = "http://127.0.0.1:8888/MUPPLE/"; 
 
 var M = {};
 
 
 var MUPPLE = function() {
 
-	var slideBar = new SlideBar(function() {
+	 this.slideBar = new SlideBar(function() {
 
 		mupple.load(document);					
 
@@ -40,12 +40,98 @@ var MUPPLE = function() {
 		});
 
 
-		M.setup.menus();
-		M.setup.tabs();
+		createMenus();
+		setupListeners();
+		
 		M.util.xptrServiceInit();
 
 	});
 		
+	function createMenus() {
+		with(jetpack.menu.context) {
+			
+			page.on("a, a > *").add(function(context) {
+				return {
+					icon:		base + "image/link-1.png",
+			    	label:		"Add link action",
+			    	command: 	function() {
+						var id = M.util.sha1(M.util.baseDomain(context.document.location));
+
+						var action = $("#actions li.link", document).clone()
+							.text($(context.node).text());
+						$("#" + id + " .action", document).append(action);
+					
+						mupple.save(document);
+					}
+				};
+			});
+
+			page.on("input").add(function(context) {
+				return {
+					icon:		base + "image/document-edit-1.png",
+			    	label:		"Add form field action",
+			    	command: 	function() {
+						var id = M.util.sha1(M.util.baseDomain(context.document.location));
+
+						var action = $("#actions li.field", document).clone()
+							.text($(context.node).attr("name"));
+						$("#" + id + " .action", document).append(action);
+					
+						mupple.save(document);
+					}
+				};
+			});
+		
+			page.beforeShow = function(menu, context) {
+				menu.reset();
+			  	if (jetpack.selection.text) {
+					
+			    	menu.add({
+						icon:		base + "image/bubble-1.png",
+				    	label:		"Note: " + jetpack.selection.text,
+						command: 	function() {
+							var id = M.util.sha1(M.util.baseDomain(context.document.location));
+
+							var action = $("#actions li.note", document).clone()
+								.text(jetpack.selection.text);
+							$("#" + id + " .action", document).append(action);
+						
+							console.log(M.xptrService.createXPointerFromSelection(
+							    jetpack.tabs.focused.contentWindow.getSelection(), 
+							    jetpack.tabs.focused.contentDocument));
+						
+							mupple.save(document);
+						}
+					});
+			  	}
+			};
+		}
+	}
+	
+	function setupListeners() {
+
+		jetpack.tabs.onOpen(function(tab) {
+
+		});
+
+		jetpack.tabs.onReady(function(tab) {
+			if ($("title", tab).length == 0) return;
+
+			var id = M.util.sha1(M.util.baseDomain(tab.location));
+			if ($("#" + id, document).length != 0) return;
+
+			var t = $("#tab div.tab", document).clone();
+			$("#container", document).append(t);
+			
+			t.autoRender({
+				id:		id,
+				title: 	$("title", tab).text()
+			});
+
+			mupple.save(document);
+		});
+	}
+	
 	this.save = function(document) {
 		//jetpack.future.import("storage.simple");
 		console.log("save " + $("#container", document).html());
@@ -118,95 +204,11 @@ var SlideBar = function(callback) {
 
 M.setup = {
 	tabs:	function() {
-		console.log("setup tabs");
-		
-		jetpack.tabs.onOpen(function(tab) {
 
-		});
-
-		jetpack.tabs.onReady(function(tab) {
-			console.log("tab ready" + document);
-			if ($("title", tab).length == 0) return;
-
-			var id = M.util.sha1(M.util.baseDomain(tab.location));
-			if ($("#" + id, document).length != 0) return;
-
-			var t = $("#tab div.tab", document).clone();
-			$("#container", document).append(t);
-			
-			t.autoRender({
-				id:		id,
-				title: 	$("title", tab).text()
-			});
-
-			mupple.save(document);
-		});
 	},
 	
 	menus:	function() {
-		console.log("setup menus");
-		
-		jetpack.menu.context.page.on("a, a > *").add(function(context) {
-			return {
-				icon:		M.base + "image/link-1.png",
-		    	label:		"Add link action",
-		    	command: 	function() {
-					var id = M.util.sha1(M.util.baseDomain(context.document.location));
-					//TODO: create widget if non-existant
-					
-					//TODO: use PURE
-					var action = $("#actions li.link", M.slide).clone()
-						.text($(context.node).text());
-					$("#" + id + " .action", M.slide).append(action);
-					
-					M.save();
-				}
-			};
-		});
 
-		jetpack.menu.context.page.on("input").add(function(context) {
-			return {
-				icon:		M.base + "image/document-edit-1.png",
-		    	label:		"Add form field action",
-		    	command: 	function() {
-					var id = M.util.sha1(M.util.baseDomain(context.document.location));
-					//TODO: create widget if non-existant
-					
-					//TODO: use PURE
-					var action = $("#actions li.field", M.slide).clone()
-						.text($(context.node).attr("name"));
-					$("#" + id + " .action", M.slide).append(action);
-					
-					M.save();
-				}
-			};
-		});
-		
-		jetpack.menu.context.page.beforeShow = function(menu, context) {
-			menu.reset();
-		  	if (jetpack.selection.text) {
-				//jetpack.selection.text
-		    	menu.add({
-					icon:		M.base + "image/bubble-1.png",
-			    	label:		"Note: " + jetpack.selection.text,
-					command: 	function() {
-						var id = M.util.sha1(M.util.baseDomain(context.document.location));
-						//TODO: create widget if non-existant
-
-						//TODO: use PURE
-						var action = $("#actions li.note", M.slide).clone()
-							.text(jetpack.selection.text);
-						$("#" + id + " .action", M.slide).append(action);
-						
-						console.log(M.xptrService.createXPointerFromSelection(
-						    jetpack.tabs.focused.contentWindow.getSelection(), 
-						    jetpack.tabs.focused.contentDocument));
-						
-						M.save();
-					}
-				});
-		  	}
-		};
 	}
 };
 
@@ -214,7 +216,7 @@ M.util = {
 	loadScript:	function(src, document, callback) {
 		var script = document.createElementNS("http://www.w3.org/1999/xhtml", "script");
 		script.src = src;
-		$(script).bind("load", callback);
+		if (callback) $(script).bind("load", callback);
 		document.getElementsByTagName("head")[0].appendChild(script);
 	},
 	
@@ -224,14 +226,14 @@ M.util = {
 		style.rel 		= "stylesheet";
 		style.href 		= href;
 		style.media 	= "screen";
-		$(style).bind("load", callback);
+		if (callback) $(style).bind("load", callback);
 		document.getElementsByTagName("head")[0].appendChild(style);
 	},
 	
 	import:	function(src, callback) {
 		$.get(src, function(data, status) {
 			eval(data);
-			callback();
+			if (callback) callback();
 		});
 	},
 	
@@ -288,12 +290,7 @@ M.util = {
 		} catch (ignored) {}
 		
 		if (!xptrService) {
-			// how can we have this blocking? narrativejs-like?
-			M.util.import(M.base + "script/lib/nsXPointerService.js", function() {
-				//M.xptrService = new XPointerService();
-				console.log("xpointerlib imported");
-				//M.xptrService = new XPointerService();
-			});
+			M.util.import(base + "script/lib/nsXPointerService.js");
 		}
 		
 	}
