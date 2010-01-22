@@ -1,0 +1,413 @@
+// This import applies a global reset to any page that imports this stylesheet.
+@import blueprint/reset.sass
+// To configure blueprint, edit the partials/base.sass file.
+@import partials/base.sass
+// Import all the default blueprint modules so that we can access their mixins.
+@import blueprint
+// Import the non-default scaffolding module.
+@import blueprint/modules/scaffolding.sass
+
+@import blueprint/modules/buttons.sass
+
+// To generate css equivalent to the blueprint css but with your configuration applied, uncomment:
+// +blueprint
+
+//Recommended Blueprint configuration with scoping and semantic layout:
++blueprint-typography("body.slide")
++blueprint-scaffolding("body.slide")
+
+
+=small-button(!float = false)
+	+button-base(!float)
+	-moz-border-radius:	4px 4px 4px 4px
+	margin:				0
+	font-size:			10px
+
+
+body.slide
+	+blueprint-utilities
+	+blueprint-debug
+	+blueprint-interaction
+	// Remove the scaffolding when you're ready to start doing visual design.
+	// Or leave it in if you're happy with how blueprint looks out-of-the-box
+	margin:		0
+	padding:	0
+	background-color:	#eeeeee
+	//background:	-moz-linear-gradient(top, #eeeeee, #fefefe)
+	background:	-moz-linear-gradient(left, #dddddd, #eeeeee 5%, #eeeeee 95%, #e7e7e7)
+	height:		100%
+	//overflow-x:	hidden
+
+	div.container
+		+container
+		width:			290px
+		//height: 		100%
+		//overflow-x:	hidden
+
+	div.empty
+		margin-top:	20px
+		
+		h1
+			color:			#dddddd
+			text-shadow:	0 1px 0 rgba(255, 255, 255, 0.9)
+
+	.empty
+		display:		none
+		color:			#dddddd
+		text-shadow:	0 1px 0 rgba(255, 255, 255, 0.9)
+		text-align:	center
+		
+		a
+			color:				#cccccc
+		
+		a:hover
+			color:				#666666
+
+	.empty:first-child:last-child
+		display:	block
+
+	a.help
+		background-image: 		url(../image/question-1.png)
+		background-repeat: 		no-repeat
+		background-position: 	right
+		padding-right: 			20px
+		padding-bottom:			4px
+		
+	a.help:hover
+		background-image: 		url(../image/question-2.png)
+		
+	a.info
+		background-image: 		url(../image/info-2.png)
+		background-repeat: 		no-repeat
+		background-position: 	right
+		padding-right: 			20px
+		padding-bottom:			2px
+
+	a.info:hover
+		background-image: 		url(../image/info-1.png)
+			
+	a.delete
+		background-image: 		url(../image/x-2.png)
+		background-repeat: 		no-repeat
+		background-position: 	right
+		padding-right: 			20px
+		padding-bottom:			2px
+
+	a.delete:hover
+		background-image: 		url(../image/x-1.png)
+
+	a.add
+		background-image: 		url(../image/doc-add-2.png)
+		background-repeat: 		no-repeat
+		background-position: 	right
+		padding-right: 			20px
+		padding-bottom:			2px
+
+	a.add:hover
+		background-image: 		url(../image/doc-add-1.png)
+
+
+
+
+	#workflows
+		+column(7)
+		width:				290px
+		margin:				0
+		background:			#999999
+		background:			-moz-linear-gradient(top, #999999, #666666)
+		-moz-border-radius:	0px 0px 3px 3px
+		-moz-box-shadow:	0px 0px 7px #000000
+		//-moz-box-shadow:	0px 0px 5px #999999
+		
+
+		div.content
+			display:	none
+			color:		#eeeeee
+			text-shadow:	0 1px 3px rgba(0, 0, 0, 0.4)
+			
+			h4
+				color:			#eeeeee
+				padding-left:	12px
+				
+			ul
+				margin:		0
+				margin-left:	8px
+				padding:	0
+				list-style:	none
+
+				li
+					background-image: 		url(../image/play-1-dark.png)
+					background-repeat: 		no-repeat
+					background-position: 	0 0px
+					padding-left: 			20px
+					padding-bottom:			4px
+					
+				li:hover
+					color:					white
+					
+				li:hover, .selected
+					background-image: 		url(../image/play-1.png)
+					
+			div.buttons
+				text-align:		right
+				//padding-bottom:	20px
+				padding-top:	2px
+				
+				span
+					background-image: 		url(../image/question-2.png)
+					padding-left: 			20px
+					padding-bottom:			2px
+					background-repeat: 		no-repeat
+					background-position: 	left
+			
+
+		div.expander
+			text-align:		center
+			
+			span
+				background-image: 		url(../image/arrow-box-down-1-dark.png)
+				padding-left: 			20px
+				padding-bottom:			2px
+				background-repeat: 		no-repeat
+				background-position: 	left
+				
+		div.expander-up
+			span
+				background-image: 		url(../image/arrow-box-up-1-dark.png)
+					
+		div.expander:hover
+			span
+				background-image: 		url(../image/arrow-box-down-1.png)
+				
+		div.expander-up:hover
+			span
+				background-image: 		url(../image/arrow-box-up-1.png)
+
+
+
+
+	#workflow
+		+column(7)
+		margin:				4px
+		padding:			4px
+		color:			#666666
+		text-shadow:	0 1px 0 rgba(255, 255, 255, 0.9)
+		
+		h3
+			//+column(7)
+			text-align:		center
+			margin-bottom:	0
+			color:			#999999
+			background-image: 		url(../image/arrow-simple-down-2.png)
+			background-repeat: 		no-repeat
+			background-position: 	0 1px
+			padding-left: 			20px
+			
+		h3:hover
+			background-image: 		url(../image/arrow-simple-down-1.png)
+			
+		h3.collapsed
+			background-image: 		url(../image/arrow-simple-right-2.png)
+
+		h3.collapsed:hover
+			background-image: 		url(../image/arrow-simple-right-1.png)
+
+		
+
+		.content
+			+column(7)
+			margin-top:		12px
+			font-weight:	bold
+
+			ul
+				margin:		0
+				padding:	0
+				list-style:	none
+
+				li
+					background-image: 		url(../image/check-circle-2.png)
+					background-repeat: 		no-repeat
+					background-position: 	0 2px
+					padding-left: 			20px
+					padding-bottom:			4px
+				li:hover
+					background-image: 		url(../image/check-circle-1.png)
+					
+					
+				li.empty
+					//padding-left: 			0
+					background-image: 		none //url(../image/sad-face-2.png)
+					background-position: 	100px 100px
+					font-style:				italic
+				li.empty:hover
+					//background-image: 		none //url(../image/sad-face-1.png)
+					color:	#cccccc
+
+			a
+				color:				#cccccc
+
+			a:hover
+				color:				#666666
+			
+			
+					
+		button
+			+button-colors
+			+button-hover-colors
+			+button-active-colors
+			+small-button("right")
+			margin:	4px
+		
+		div.workflowtrash
+			color:	#eeeeee
+			background-image: 		none //url(../image/trash-2.png)
+			background-repeat: 		no-repeat
+			background-position: 	100px 100px
+			padding-left: 			18px
+			margin-left:			20px
+			display:				block
+			text-shadow:			none
+
+
+
+
+			
+	div.tab
+		+column(7)
+		-moz-border-radius:	4px 4px 4px 4px
+		-moz-box-shadow:	0px 0px 5px #999999
+		background-color:	white
+		background:			-moz-linear-gradient(top, white, #f7f7f7)
+		margin:				8px
+		padding:			4px
+		
+		h4
+			+column(7)
+			width:			250px
+			white-space:	nowrap
+			overflow:		hidden
+			text-overflow:	ellipsis
+			margin-bottom:	0
+			background-image: 		url(../image/check-circle-2.png)
+			background-repeat: 		no-repeat
+			background-position: 	0 1px
+			padding-left: 			20px
+			padding-right:			10px
+			
+		.content
+			+column(7)
+			margin-top:	12px
+			
+			ul
+				margin:		0
+				padding:	0
+				list-style:	none
+
+				li
+					background-image: 		url(../image/arrow-simple-right-2.png)
+					background-repeat: 		no-repeat
+					background-position: 	0 2px
+					padding-left: 			20px
+					padding-bottom:			4px
+				li:hover
+					background-image: 		url(../image/arrow-simple-right-1.png)
+
+				li.link
+					background-image: 		url(../image/link-2.png)
+					background-position: 	0 0
+				li.link:hover
+					background-image: 		url(../image/link-1.png)
+						
+				li.field
+					background-image: 		url(../image/document-edit-2.png)
+					background-position: 	0 0
+				li.field:hover
+					background-image: 		url(../image/document-edit-1.png)
+
+				li.note
+					background-image: 		url(../image/bubble-2.png)
+				li.note:hover
+					background-image: 		url(../image/bubble-1.png)
+
+				li.pic
+					background-image: 		url(../image/image-2.png)
+					background-position: 	0 0
+				li.pic:hover
+					background-image: 		url(../image/image-1.png)
+
+				li.shot
+					background-image: 		url(../image/camera-2.png)
+					background-position: 	0 0
+				li.shot:hover
+					background-image: 		url(../image/camera-1.png)
+
+
+				li.empty
+					padding-left: 			0
+					background-image: 		none //url(../image/sad-face-2.png)
+					background-position: 	100px 100px
+					font-style:				italic
+				li.empty:hover
+					//background-image: 		none //url(../image/sad-face-1.png)
+					color:	#cccccc
+
+
+				
+	div.tab:hover
+		h4
+			background-image: 		url(../image/check-circle-1.png)		
+
+	div.tab-deleted
+		background: 		-moz-repeating-linear-gradient(top left -45deg, #f7f7f7, #f7f7f7 5px, white 5px, white 10px)
+		
+	#flow
+		position:	relative
+		left:		-150px
+		
+	div.bar
+		+column(2)
+		+prepend(2)
+		border-top:		1px dashed #eeeeee
+		padding-top:	4px
+		background-image: 		none //url(../image/trash-2.png)
+		background-position: 	0 4px
+		background-repeat: 		no-repeat
+
+		div.trash
+			background-image: 		none //url(../image/trash-2.png)
+			background-repeat: 		no-repeat
+			background-position: 	100px 100px
+			padding-left: 			18px
+			margin-left:			20px
+			//padding-bottom:			2px
+			display:				block
+			color:					white
+
+		//div.trash-active
+		//	background-image: 		url(../image/trash-2.png)
+		//	background-position: 	0 0px
+		
+		//div.trash-hover
+		//	background-image: 		url(../image/trash-1.png)
+		//	background-position: 	0 0px
+
+	//parent div
+	div.trash-active
+		background-image: 		url(../image/trash-2.png)
+		//background-position: 	0 0px
+
+	div.trash-hover
+		background-image: 		url(../image/trash-1.png)
+		//background-position: 	0 0px
+		
+	div.bar-button
+		+column(3, true)
+		
+		border-top:		1px dashed #eeeeee
+		padding-top:	4px
+		
+		button
+			+button-colors
+			+button-hover-colors
+			+button-active-colors
+			+small-button("right")
