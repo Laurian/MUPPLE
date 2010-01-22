@@ -14,6 +14,16 @@
 		:license <http://www.apache.org/licenses/LICENSE-2.0> .
 */
 
+//const base = "http://github.com/Laurian/MUPPLE/raw/master/";
+//const base = "http://laurian.github.com/MUPPLE/";
+const base = "http://127.0.0.1:8888/MUPPLE/"; 
+
+var manifest = {
+	firstRunPage: base + "first-run.html",
+}
+
+
+
 with (jetpack.future) {
 	import("slideBar");
 	import("menu");
@@ -21,21 +31,43 @@ with (jetpack.future) {
 	import("storage.simple");
 }
 
-//const base = "http://github.com/Laurian/MUPPLE/raw/master/";
-const base = "http://laurian.github.com/MUPPLE/";
-//const base = "http://127.0.0.1:8888/MUPPLE/"; 
-
 var MUPPLE = function() {
 
 	Utils.init();
 	
 	this.slideBar = new SlideBar(function() {
 
-		mupple.load(document);					
+		mupple.restore(document);					
 
 		// "import" PURE right here, it requires "document"
 		$.get(base + "script/lib/pure_packed.js", function(data, status) {
 			eval(data);
+		});
+		
+		$("#comm", document).load(function() {
+			var message = $(this).attr("src");
+			message = message.substring(message.indexOf("#") + 1);
+			//console.log("message: " + message);
+			
+			if (message == "save") mupple.save(document);
+			
+			var command = message.substring(0, message.indexOf(":"));
+			var args = message.substring(message.indexOf(":") + 1);
+			
+			if (command == "link-over") {
+				$("a[href='"+args+"']", jetpack.tabs.focused.contentDocument).css({
+					outline: "1px solid DeepPink"
+				});
+			}
+			if (command == "link-out") {
+				$("a[href='"+args+"']", jetpack.tabs.focused.contentDocument).css({
+					outline: null
+				});
+			}
+			if (command == "show") {
+				$("a[href='"+args+"']", jetpack.tabs.focused.contentDocument)
+				.before(Utils.createBadge(jetpack.tabs.focused.contentDocument, "foo", "bar"));
+			}
 		});
 
 
@@ -53,9 +85,28 @@ var MUPPLE = function() {
 			    	label:		"Add link action",
 			    	command: 	function() {
 						var id = Utils.sha1(Utils.baseDomain(context.document.location));
-
+						
+						var text = $(context.node).text();
+						
+						/*
+						
+						var xptr = context.document.location + "#xpointer(" + Utils.getXPath(context.node) + ")";
+						
+						console.log(xptr);
+						
+						xptr = "http://example.com/#xpointer:(string-range(/html[1]/body[1]/p[1], \"\", 1, 10))";
+						
+						console.log(xptr);
+						
+						var range = Utils.xptrService.parseXPointerToRange(xptr, jetpack.tabs.focused.contentDocument);
+						jetpack.tabs.focused.contentWindow.getSelection().addRange(range);
+						*/
+						
 						var action = $("#actions li.link", document).clone()
-							.text($(context.node).text());
+							.text(text).attr({
+								about:	$(context.node).attr("href"),
+								property:	"rdfs:label"
+							});
 						$("#" + id + " .action", document).append(action);
 					
 						mupple.save(document);
@@ -130,17 +181,14 @@ var MUPPLE = function() {
 	}
 	
 	this.save = function(document) {
-		console.log("save " + $("#container", document).html());
 		jetpack.storage.simple.test = $("#container", document).html();
 	};
 	
-	this.load = function(document) {
-		console.log("load " + jetpack.storage.simple.test);
+	this.restore = function(document) {
 		$("#container", document).html(jetpack.storage.simple.test);
 	};
 	
 };
-
 
 
 var SlideBar = function(callback) {
@@ -149,11 +197,11 @@ var SlideBar = function(callback) {
 	
 	jetpack.slideBar.append({
 		icon:	base + "image/mupple-jetpack_32x32.png",
-		width:	310,			
+		width:	300 + 310,			
 		url:	base + "slidebar.html",
 								
 		onSelect:	function(slide) { 
-			slide.slide(310, true);
+			slide.slide(300 + 310, true);
 		},
 		
 		onReady:	function(slide) {
@@ -199,6 +247,9 @@ var SlideBar = function(callback) {
 
 
 var Utils = {
+	
+	xptrService:	null,
+	
 	init:	function() {
 		var xptrService;
 		
@@ -235,6 +286,17 @@ var Utils = {
 			eval(data);
 			if (callback) callback();
 		});
+	},
+	
+	injectScript:	function(code, document) {
+		var script = document.createElementNS("http://www.w3.org/1999/xhtml", "script");
+		$(script).text(code);
+		document.getElementsByTagName("head")[0].appendChild(script);
+	},
+	
+	injectJsonP:	function(data, document, callbackName) {
+		var nativeJSON = Components.classes["@mozilla.org/dom/json;1"].createInstance(Components.interfaces.nsIJSON);
+		Utils.injectScript(callbackName + "(" + nativeJSON.encode(data) + ");", document);
 	},
 	
 	uri:	function(uri, base) {
@@ -277,14 +339,55 @@ var Utils = {
 
 		return [toHexString(hash.charCodeAt(i)) for (i in hash)].join("");
 	},
-	
-	xptrService:	null,
-	
+
+	getXPath: 	function(element){
+		var path = "";
+     	for (; element && element.nodeType == 1; element = element.parentNode) {
+	    	idx = (function(element) {
+				var count = 1;
+			    for (var sib = element.previousSibling; sib ; sib = sib.previousSibling) {
+			    	if(sib.nodeType == 1 && sib.tagName == element.tagName) count++;
+			    }
+			    return count;
+		  	}(element));
+       		xname = element.tagName;
+	       	if (idx > 1) xname += "[" + idx + "]";
+	       	path = "/" + xname.toLowerCase() + path;
+		}
+		return path;
+	},
+							
 	toggleUbiquity:		function(command) {
 		with (jetpack.tabs[0].raw.ownerDocument.defaultView.gUbiquity) {
 			if (command) textBox.value = command;
 			toggleWindow();
 		}
+	},
+	
+	createBadge:	function(document, id, title) {
+		return $("<span></span>", document).css({
+	 		height:	31,
+	        width:	26,
+			"background-repeat": 	"no-repeat",
+	        backgroundImage:	"url(" + base + "image/bubble-2.png)",
+	        position:			"absolute",
+	        "-moz-background-inline-policy":	"continuous",
+	        cursor:			"pointer",
+	        "margin-top": 	"-20px",
+	        "margin-left": 	"-10px",
+	        "opacity": 		.3
+		})
+		.attr({
+			id:		id,
+			title:	title
+		}).hover(
+			function() {
+				$(this).css({backgroundImage:	"url(" + base + "image/bubble-1.png)"});
+			},
+			function() {
+				$(this).css({backgroundImage:	"url(" + base + "image/bubble-2.png)"});
+			}
+		);
 	}
 };
 
