@@ -8,7 +8,10 @@ $(".workflows").livequery(function(){
     $(this).sortable({
 		revert: 		true,
 		dropOnEmpty:	true,
-		cancel: 		'li.empty'
+		cancel: 		'li.empty',
+		update:			function() {
+			save();
+		}
 	});
 });
 
@@ -36,6 +39,7 @@ $(".workflowtrash").livequery(function(){
 			$(ui.draggable).remove();
 			$(this).parents(".bar").removeClass("trash-hover");
 			$(this).parents(".bar").removeClass("trash-active");
+			//save();
 		},
 		over:	function(event, ui) {
 			$(this).parents(".bar").addClass("trash-hover");
@@ -58,7 +62,10 @@ $(".action").livequery(function(){
 		revert: 		true,
 		connectWith:	'.action',
 		dropOnEmpty:	true,
-		cancel: 		'li.empty'
+		cancel: 		'li.empty',
+		update:			function() {
+			save();
+		}
 	});
 });
 
@@ -81,6 +88,7 @@ $(".trash").livequery(function(){
 			$(ui.draggable).remove();
 			$(this).parents(".bar").removeClass("trash-hover");
 			$(this).parents(".bar").removeClass("trash-active");
+			//save();
 		},
 		over:	function(event, ui) {
 			$(this).parents(".bar").addClass("trash-hover");
@@ -105,6 +113,9 @@ $("#container").livequery(function(){
 		handle:	'h4',
 		start:	function() {
 			ignoreClick = true;
+		},
+		update:	function() {
+			save();
 		}
 	});
 });
@@ -171,7 +182,9 @@ $('.title, .action li, #workflow h3, ul.workflows > li').livequery(function() {
 	var type = ($(this).text().length > 50)?"textarea":"text";
 	
     $(this).editable(function(value, settings) {
-        $(this).effect("highlight", null, 2500);
+        $(this).effect("highlight", null, 500, function() {
+			save();
+		});
         return value;
     }, {
         event: 	'dblclick',
@@ -186,11 +199,36 @@ $("a.delete").livequery(function() {
     $(this).bind("click", function() {
 		$(this).parents(".tab").addClass("tab-deleted").slideUp("normal", function() {
 			$(this).remove();
+			save();
 		});
 		return false;
 	});
 });
 
+$('.action li').livequery(function() {
+    $(this).hover(
+		function() {
+			//console.log($(this).rdf().databank.dump({format:'application/rdf+xml', serialize: true}));
+			send("link-over:" + $(this).attr("about"));
+		},
+		function() {
+			send("link-out:" + $(this).attr("about"));
+		}
+	).click(function() {
+			send("show:" + $(this).attr("about"));
+	});
+});
+
+function save() {
+	send("save");
+}
+
+function send(message) {
+	//console.log(message);
+	$("#comm").attr({
+		src: "data:text/plain,have a number: " + Math.random() + "#" + message
+	});
+}
 
 //dev bookmarklets
 
@@ -198,4 +236,4 @@ $("a.delete").livequery(function() {
 //function fnStartDesign(sUrl) {var nScript = document.createElement('script');nScript.setAttribute('language','JavaScript');nScript.setAttribute('src',sUrl);document.body.appendChild(nScript);}fnStartDesign('http://www.sprymedia.co.uk/design/design/media/js/design-loader.js');
 
 //Load http://getfirebug.com/lite.html
-//var firebug=document.createElement('script');firebug.setAttribute('src','http://getfirebug.com/releases/lite/1.2/firebug-lite-compressed.js');document.body.appendChild(firebug);(function(){if(window.firebug.version){firebug.init();}else{setTimeout(arguments.callee);}})();void(firebug);
+var firebug=document.createElement('script');firebug.setAttribute('src','http://getfirebug.com/releases/lite/1.2/firebug-lite-compressed.js');document.body.appendChild(firebug);(function(){if(window.firebug.version){firebug.init();}else{setTimeout(arguments.callee);}})();void(firebug);
