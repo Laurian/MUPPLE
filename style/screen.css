@@ -98,7 +98,7 @@ body.slide a.delete { background-image: url(../image/x-2.png); background-repeat
 body.slide a.delete:hover { background-image: url(../image/x-1.png); }
 body.slide a.add { background-image: url(../image/doc-add-2.png); background-repeat: no-repeat; background-position: right; padding-right: 20px; padding-bottom: 2px; }
 body.slide a.add:hover { background-image: url(../image/doc-add-1.png); }
-body.slide #workflows { display: inline; float: left; margin-right: 10px; width: 270px; width: 290px; margin: 0; background: #999999; background: -moz-linear-gradient(top, #999999, #666666); -moz-box-shadow: 0px 0px 7px #000000; }
+body.slide #workflows { display: inline; float: left; margin-right: 10px; width: 270px; width: 290px; margin: 0; background: #999999; background: -moz-linear-gradient(top, #999999, #666666); -moz-border-radius: 0px 0px 3px 3px; -moz-box-shadow: 0px 0px 7px #000000; }
 * html body.slide #workflows { overflow-x: hidden; }
 body.slide #workflows div.content { display: none; color: #eeeeee; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4); }
 body.slide #workflows div.content h4 { color: #eeeeee; padding-left: 12px; }
@@ -155,6 +155,7 @@ body.slide div.tab .content ul li.shot:hover { background-image: url(../image/ca
 body.slide div.tab .content ul li.empty { padding-left: 0; background-image: none //url(../image/sad-face-2.png); background-position: 100px 100px; font-style: italic; }
 body.slide div.tab .content ul li.empty:hover { color: #cccccc; }
 body.slide div.tab:hover h4 { background-image: url(../image/check-circle-1.png); }
+body.slide div.tab-deleted { background: -moz-repeating-linear-gradient(top left -45deg, #f7f7f7, #f7f7f7 5px, white 5px, white 10px); }
 body.slide #flow { position: relative; left: -150px; }
 body.slide div.bar { display: inline; float: left; margin-right: 10px; width: 70px; padding-left: 80px; border-top: 1px dashed #eeeeee; padding-top: 4px; background-image: none //url(../image/trash-2.png); background-position: 0 4px; background-repeat: no-repeat; }
 * html body.slide div.bar { overflow-x: hidden; }
