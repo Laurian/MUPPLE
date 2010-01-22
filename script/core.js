@@ -21,6 +21,8 @@ with (jetpack.future) {
 	import("storage.simple");
 }
 
+//jetpack.tabs[0].raw.ownerDocument.defaultView.gUbiquity.toggleWindow();
+
 
 //const base = "http://github.com/Laurian/MUPPLE/raw/master/";
 const base = "http://127.0.0.1:8888/MUPPLE/"; 
@@ -40,12 +42,11 @@ var MUPPLE = function() {
 		});
 
 
-		createMenus();
-		setupListeners();
-		
-		M.util.xptrServiceInit();
-
 	});
+
+	createMenus();
+	setupListeners();
+	M.util.xptrServiceInit();
 		
 	function createMenus() {
 		with(jetpack.menu.context) {
@@ -133,13 +134,11 @@ var MUPPLE = function() {
 	}
 	
 	this.save = function(document) {
-		//jetpack.future.import("storage.simple");
 		console.log("save " + $("#container", document).html());
 		jetpack.storage.simple.test = $("#container", document).html();
 	};
 	
 	this.load = function(document) {
-		//jetpack.future.import("storage.simple");
 		console.log("load " + jetpack.storage.simple.test);
 		$("#container", document).html(jetpack.storage.simple.test);
 	};
@@ -202,15 +201,6 @@ var SlideBar = function(callback) {
 
 };
 
-M.setup = {
-	tabs:	function() {
-
-	},
-	
-	menus:	function() {
-
-	}
-};
 
 M.util = {
 	loadScript:	function(src, document, callback) {
@@ -334,8 +324,8 @@ M.templates = {
 				        		</div>
 								<h4>Open Workflows</h4>
 								<ul>
-				        			<li>n/a</li>
-				        			<li class="selected">Current Workflow</li>
+				        			<li>Create a Jetpack</li>
+				        			<li class="selected">Collaborative Paper Writing</li>
 				        		</ul>
 							</div>
 							<div class="expander">
@@ -344,7 +334,7 @@ M.templates = {
 				        </div>
 						<!-- -->
 						<div id="workflow">
-				            <h3>Current Workflow3</h3>
+				            <h3>Collaborative Paper Writing</h3>
 							<div class="content">
 								<ul class="workflows">
 									<li class="empty">
@@ -355,11 +345,14 @@ M.templates = {
 											or <a href="#" class="delete">delete this workflow</a>
 										</p>
 									</li>
-				                	<li class="link">Current task set</li>
+				                	<li class="link">Create learning diary</li>
+				                	<li class="link">Collect literature</li>
+				                	<li class="link">Create learning diary</li>
+				                	<li class="link">…</li>
 				                </ul>
 
 								<div class="bar">
-									<div class="workflowtrash">trash</div>
+									<div class="workflowtrash">. . . .</div>
 								</div>
 								<div class="bar-button">
 									<a href="#" class="add">new task (set)</a>
@@ -385,7 +378,7 @@ M.templates = {
 										</li>
 							    	</ul>
 									<div class="bar">
-										<div class="trash">trash</div>
+										<div class="trash">. . . .</div>
 									</div>
 									<div class="bar-button">
 										<button>Done</button>
