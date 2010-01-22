@@ -21,9 +21,6 @@ with (jetpack.future) {
 	import("storage.simple");
 }
 
-//jetpack.tabs[0].raw.ownerDocument.defaultView.gUbiquity.toggleWindow();
-
-
 //const base = "http://github.com/Laurian/MUPPLE/raw/master/";
 const base = "http://127.0.0.1:8888/MUPPLE/"; 
 
@@ -283,6 +280,13 @@ M.util = {
 			M.util.import(base + "script/lib/nsXPointerService.js");
 		}
 		
+	},
+	
+	toggleUbiquity:		function(command) {
+		with (jetpack.tabs[0].raw.ownerDocument.defaultView.gUbiquity) {
+			if (command) textBox.value = command;
+			toggleWindow();
+		}
 	}
 };
 
@@ -391,9 +395,6 @@ M.templates = {
 							<li class="field">form field</li>
 							<li class="note">annotation</li>
 						</ul>
-					</div>
-					<div class="container">
-						<pre><![CDATA[ ]]></pre>
 					</div>
 					<span id="flow"><![CDATA[ ]]></span>
 				</body>
