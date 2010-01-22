@@ -1,11 +1,9 @@
-function log(line) {
-	$("pre").text($("pre").text() + "\n" + line);	
-}
-
+// force livequery update
 $("body").mousemove(function(e) {
 	$("#flow").text(e.pageX + ", " + e.pageY);
 });
 
+//sort workflow items
 $(".workflows").livequery(function(){
     $(this).sortable({
 		revert: 		true,
@@ -14,6 +12,8 @@ $(".workflows").livequery(function(){
 	});
 });
 
+//expand current workflow
+//TODO move boolean in a class (flag)
 var expanded = false;
 $(".expander").click(function() {
 	if (expanded) {
@@ -26,17 +26,10 @@ $(".expander").click(function() {
 	expanded = !expanded;
 });
 
+//trash bin for workflow items
 $(".workflowtrash").livequery(function(){
 	$(this).droppable({
 		accept: 'ul.workflows > li',
-		/*accept: function(el) {
-			if ($(el)[0].localName != "li") {
-				return false;
-			}
-			var p1 = $(this).parents(".workflow");
-			var p2 = $(el).parents(".workflow");
-			return p1.length > 0 && p2.length > 0 && p1[0] == p2[0];
-		},*/
 		activeClass: 'trash-active',
 		hoverClass: 'trash-hover',
 		drop:	function(event, ui) {
@@ -59,25 +52,21 @@ $(".workflowtrash").livequery(function(){
 	});
 });
 
-
+//sort tasks
 $(".action").livequery(function(){
     $(this).sortable({
-		//placeholder: 	'ui-state-highlight',
 		revert: 		true,
 		connectWith:	'.action',
 		dropOnEmpty:	true,
-		cancel: 		'li.empty',
-		//deactivate:		function() {
-			//clean-up
-			//$(".ui-sortable-placeholder").remove();
-		//}
+		cancel: 		'li.empty'
 	});
 });
 
-
+//trash bin for tasks
 $(".trash").livequery(function(){
 	$(this).droppable({
 		//accept: 'li',
+		//accept 'li' with common parrent
 		accept: function(el) {
 			if ($(el)[0].localName != "li") {
 				return false;
@@ -108,10 +97,9 @@ $(".trash").livequery(function(){
 	});
 });
 
-
+//sort task sets
 $("#container").livequery(function(){
     $(this).sortable({
-		//placeholder: 'ui-state-highlight',
 		scroll:	true,
 		revert: true,
 		handle:	'h4',
@@ -155,7 +143,7 @@ $("#workflow h3").livequery(function() {
     });
 });
 
-
+//for the editable titles filter doubleclicks, and collapse on single click
 $(".title").livequery(function() {
     $(this).bind("click", function() {
 		if (ignoreClick) {
@@ -178,6 +166,7 @@ $(".title").livequery(function() {
 	$(this).ellipsis();
 });
 
+//editable items
 $('.title, .action li, #workflow h3, ul.workflows > li').livequery(function() {
 	var type = ($(this).text().length > 50)?"textarea":"text";
 	
@@ -192,18 +181,18 @@ $('.title, .action li, #workflow h3, ul.workflows > li').livequery(function() {
     });
 });
 
-/*$('li.note').livequery(function() {
-	$(this).expander();
-});*/
-
+//delete taskset
 $("a.delete").livequery(function() {
     $(this).bind("click", function() {
-		$(this).parents(".tab").slideUp("normal", function() {
+		$(this).parents(".tab").addClass("tab-deleted").slideUp("normal", function() {
 			$(this).remove();
 		});
 		return false;
 	});
 });
+
+
+//dev bookmarklets
 
 //Load http://www.sprymedia.co.uk/article/Design bookmarklet
 //function fnStartDesign(sUrl) {var nScript = document.createElement('script');nScript.setAttribute('language','JavaScript');nScript.setAttribute('src',sUrl);document.body.appendChild(nScript);}fnStartDesign('http://www.sprymedia.co.uk/design/design/media/js/design-loader.js');
