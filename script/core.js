@@ -15,8 +15,8 @@
 */
 
 //const base = "http://github.com/Laurian/MUPPLE/raw/master/";
-const base = "http://laurian.github.com/MUPPLE/";
-//const base = "http://127.0.0.1:8888/MUPPLE/"; 
+//const base = "http://laurian.github.com/MUPPLE/";
+const base = "http://127.0.0.1:8888/MUPPLE/"; 
 
 var manifest = {
 	firstRunPage: base + "first-run.html",
@@ -67,13 +67,24 @@ var MUPPLE = function() {
 				var badge = Utils.createBadge(jetpack.tabs.focused.contentDocument, "foo", "bar");
 				$("a[href='"+args+"']", jetpack.tabs.focused.contentDocument).before(badge);
 				
+				var code = <><![CDATA[
+					$.scrollTo('#foo', 800, {
+						offset:		{top: -50, left: 0},
+						onAfter:	function() {
+							$("#foo").css({background: "red"}).text("foo");
+						}
+					});
+				]]></>;
+				
+				
 				Utils.injectLibs(jetpack.tabs.focused.contentDocument, function() {
-					Utils.injectScript("$().scrollTo('#foo', 800);", jetpack.tabs.focused.contentDocument);
+					Utils.injectScript(code.toString(), jetpack.tabs.focused.contentDocument);
 				});
-			} 
+			}
 		});
 
 	});
+
 
 	createMenus();
 	setupListeners();
