@@ -21,7 +21,8 @@ with (jetpack.future) {
 	import("storage.simple");
 }
 
-const base = "http://github.com/Laurian/MUPPLE/raw/master/";
+//const base = "http://github.com/Laurian/MUPPLE/raw/master/";
+const base = "http://laurian.github.com/MUPPLE/";
 //const base = "http://127.0.0.1:8888/MUPPLE/"; 
 
 var MUPPLE = function() {
