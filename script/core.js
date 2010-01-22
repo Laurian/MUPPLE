@@ -15,8 +15,8 @@
 */
 
 //const base = "http://github.com/Laurian/MUPPLE/raw/master/";
-//const base = "http://laurian.github.com/MUPPLE/";
-const base = "http://127.0.0.1:8888/MUPPLE/"; 
+const base = "http://laurian.github.com/MUPPLE/";
+//const base = "http://127.0.0.1:8888/MUPPLE/"; 
 
 var manifest = {
 	firstRunPage: base + "first-run.html",
@@ -55,26 +55,53 @@ var MUPPLE = function() {
 			
 			if (command == "link-over") {
 				$("a[href='"+args+"']", jetpack.tabs.focused.contentDocument).css({
-					outline: "1px solid DeepPink"
+					outline: "1px solid rgba(255, 20, 147, 0.6)",
+					"-moz-outline-radius":	"4px 4px 4px 4px"
 				});
 			}
 			if (command == "link-out") {
 				$("a[href='"+args+"']", jetpack.tabs.focused.contentDocument).css({
-					outline: null
+					outline: null,
+					"-moz-outline-radius": null
 				});
 			}
 			if (command == "show") {
-				var badge = Utils.createBadge(jetpack.tabs.focused.contentDocument, "foo", "bar");
-				$("a[href='"+args+"']", jetpack.tabs.focused.contentDocument).before(badge);
+				var id = Utils.sha1(args);
+
+				if ($('#' + id, jetpack.tabs.focused.contentDocument).length == 0) {
+					var badge = Utils.createBadge(jetpack.tabs.focused.contentDocument, id, "pin test");
+					$("a[href='"+args+"']", jetpack.tabs.focused.contentDocument).before(badge);
+				}
 				
-				var code = <><![CDATA[
-					$.scrollTo('#foo', 800, {
-						offset:		{top: -50, left: 0},
+				var code = <>
+					muppleBase = "{base}";
+					muppleId = "{id}";
+					<![CDATA[
+					$.scrollTo('#' + muppleId, 800, {
+						offset:		{top: -40, left: -40},
 						onAfter:	function() {
-							$("#foo").css({background: "red"}).text("foo");
+							var pin = $("<span></span>").css({
+								height:	31,
+						        width:	26,
+								"background-repeat": 	"no-repeat",
+						        backgroundImage:	"url(" + muppleBase + "image/bubble-2.png)",
+						        position:			"absolute",
+						        "-moz-background-inline-policy":	"continuous",
+						        cursor:			"pointer",
+						        "margin-top": 	"-20px",
+						        "margin-left": 	"-10px",
+								"z-index":		1000,
+								top:	"-50px",
+								left:	$('#' + muppleId).position().left
+							}).appendTo("body").animate({
+								top:	$('#' + muppleId).position().top
+							});
+							setTimeout(function(){
+								pin.remove();
+							}, 3000);
 						}
 					});
-				]]></>;
+				]]></>; 
 				
 				
 				Utils.injectLibs(jetpack.tabs.focused.contentDocument, function() {
