@@ -15,13 +15,12 @@
 */
 
 //const base = "http://github.com/Laurian/MUPPLE/raw/master/";
-//const base = "http://laurian.github.com/MUPPLE/";
-const base = "http://127.0.0.1:8888/MUPPLE/"; 
+const base = "http://laurian.github.com/MUPPLE/";
+//const base = "http://127.0.0.1:8888/MUPPLE/"; 
 
 var manifest = {
 	firstRunPage: base + "first-run.html",
 }
-
 
 
 with (jetpack.future) {
@@ -43,7 +42,7 @@ var MUPPLE = function() {
 		$.get(base + "script/lib/pure_packed.js", function(data, status) {
 			eval(data);
 		});
-		
+				
 		$("#comm", document).load(function() {
 			var message = $(this).attr("src");
 			message = message.substring(message.indexOf("#") + 1);
@@ -65,11 +64,14 @@ var MUPPLE = function() {
 				});
 			}
 			if (command == "show") {
-				$("a[href='"+args+"']", jetpack.tabs.focused.contentDocument)
-				.before(Utils.createBadge(jetpack.tabs.focused.contentDocument, "foo", "bar"));
-			}
+				var badge = Utils.createBadge(jetpack.tabs.focused.contentDocument, "foo", "bar");
+				$("a[href='"+args+"']", jetpack.tabs.focused.contentDocument).before(badge);
+				
+				Utils.injectLibs(jetpack.tabs.focused.contentDocument, function() {
+					Utils.injectScript("$().scrollTo('#foo', 800);", jetpack.tabs.focused.contentDocument);
+				});
+			} 
 		});
-
 
 	});
 
@@ -197,11 +199,11 @@ var SlideBar = function(callback) {
 	
 	jetpack.slideBar.append({
 		icon:	base + "image/mupple-jetpack_32x32.png",
-		width:	300 + 310,			
+		width:	310,			
 		url:	base + "slidebar.html",
 								
 		onSelect:	function(slide) { 
-			slide.slide(300 + 310, true);
+			slide.slide(310, true);
 		},
 		
 		onReady:	function(slide) {
@@ -299,6 +301,14 @@ var Utils = {
 		Utils.injectScript(callbackName + "(" + nativeJSON.encode(data) + ");", document);
 	},
 	
+	injectLibs:		function(document, callback) {
+		with (Utils) {
+			loadScript(base + "script/lib/jquery-1.3.2.min.js", document, function() {
+				loadScript(base + "script/lib/jquery.scrollTo.js", document, callback);
+			});
+		}
+	},
+	
 	uri:	function(uri, base) {
 		return Components.classes["@mozilla.org/network/io-service;1"]
 		            .getService(Components.interfaces.nsIIOService)
@@ -364,6 +374,7 @@ var Utils = {
 		}
 	},
 	
+	//inspired by http://azarask.in/verbs/mouse/
 	createBadge:	function(document, id, title) {
 		return $("<span></span>", document).css({
 	 		height:	31,
