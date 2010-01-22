@@ -169,4 +169,4 @@ body.slide div.bar-button button:hover { background-color: #dff4ff; border-color
 body.slide div.bar-button button:active { background-color: #6299c5; border-color: #72a9d5 #6299c5 #6299c5 #72a9d5; color: white; }
 body.slide div.bar-button button img { margin: 0 3px -3px 0 !important; padding: 0; border: none; width: 16px; height: 16px; float: none; }
 
-#comm { width: 200px; height: 20px; display: none; }
+#comm { width: 200px; height: 50px; display: none; }
