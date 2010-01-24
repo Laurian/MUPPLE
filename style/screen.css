@@ -60,7 +60,7 @@ body.slide div.colborder { padding-right: 24px; margin-right: 25px; border-right
 body.slide hr { background: #dddddd; color: #dddddd; clear: both; float: none; width: 100%; height: .1em; margin: 0 0 1.45em; border: none; }
 body.slide hr.space { background: #dddddd; color: #dddddd; clear: both; float: none; width: 100%; height: .1em; margin: 0 0 1.45em; border: none; background: #fff; color: #fff; }
 
-body.slide { margin: 0; padding: 0; background-color: #eeeeee; background: -moz-linear-gradient(left, #dddddd, #eeeeee 5%, #eeeeee 95%, #e7e7e7); height: 100%; }
+body.slide { margin: 0; padding: 0; background-color: #eeeeee; background: -moz-linear-gradient(left, #dddddd, #eeeeee 5%, #eeeeee 95%, #e7e7e7); height: 100%; text-rendering: optimizeLegibility; }
 body.slide .clear { clear: both; }
 body.slide .nowrap { white-space: nowrap; }
 body.slide .clearfix { overflow: hidden; display: inline-block; }
