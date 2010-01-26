@@ -14,8 +14,8 @@
 		:license <http://www.apache.org/licenses/LICENSE-2.0> .
 */
 
-const base = "http://purl.org/ou/mupple/";
-//const base = "http://127.0.0.1:8888/MUPPLE/"; 
+//const base = "http://purl.org/ou/mupple/";
+const base = "http://127.0.0.1:8888/MUPPLE/"; 
 
 var manifest = {
 	firstRunPage: base + "first-run.html",
