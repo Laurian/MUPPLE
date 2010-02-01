@@ -17,8 +17,8 @@
 //TODO find out what license should be used.
 
 
-//const base = "http://purl.org/ou/mupple/";
-const base = "http://127.0.0.1:8888/MUPPLE/"; 
+const base = "http://purl.org/ou/mupple/";
+//const base = "http://127.0.0.1:8888/MUPPLE/"; 
 
 const width = 310;
 
