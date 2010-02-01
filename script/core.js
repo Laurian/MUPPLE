@@ -392,8 +392,8 @@ var Card = function(document, tab) {
 		<div class="content">
 	   		<ul class="action">
 	    		<li class="empty">
-					<p>no actions, <a href="http://wiki.github.com/Laurian/MUPPLE" target="_new" class="help">show me how to add one</a></p>
-					<p>or <a href="http://wiki.github.com/Laurian/MUPPLE" target="_new" class="delete">delete this group</a></p>
+					<p>no actions, <a href="https://wiki.mozilla.org/Education/Projects/JetpackForLearning/Profiles/MUPPLE#How_to_MUPPLE_the_Web" target="_new" class="help">show me how to add one</a></p>
+					<p>or <a href="#" class="delete">delete this group</a></p>
 				</li>
 	    	</ul>
 			<div class="bar">
