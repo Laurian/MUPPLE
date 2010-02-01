@@ -1,9 +1,10 @@
-// force livequery update
+// force livequery update when we enter this document
+// modifications done with jquery from jetpack don't trigger livequery :(
 $("body").mousemove(function(e) {
 	$("#flow").text(e.pageX + ", " + e.pageY);
 });
 
-//sort workflow items
+//make sortable the workflow items
 $(".workflows").livequery(function(){
     $(this).sortable({
 		revert: 		true,
@@ -16,7 +17,8 @@ $(".workflows").livequery(function(){
 });
 
 //expand current workflow
-//TODO move boolean in a class (flag)
+// TODO move boolean in a class (flag)
+// such that the flag would be saved (DOM save)
 var expanded = false;
 $(".expander").click(function() {
 	if (expanded) {
@@ -39,7 +41,7 @@ $(".workflowtrash").livequery(function(){
 			$(ui.draggable).remove();
 			$(this).parents(".bar").removeClass("trash-hover");
 			$(this).parents(".bar").removeClass("trash-active");
-			//save();
+			//save(); //no need, sortable.update does the job.
 		},
 		over:	function(event, ui) {
 			$(this).parents(".bar").addClass("trash-hover");
@@ -56,7 +58,7 @@ $(".workflowtrash").livequery(function(){
 	});
 });
 
-//sort tasks
+//make sortable tasks
 $(".action").livequery(function(){
     $(this).sortable({
 		revert: 		true,
@@ -72,8 +74,8 @@ $(".action").livequery(function(){
 //trash bin for tasks
 $(".trash").livequery(function(){
 	$(this).droppable({
-		//accept: 'li',
-		//accept 'li' with common parrent
+		//accept: 'li', 
+		//we need accept 'li' with common parrent:
 		accept: function(el) {
 			if ($(el)[0].localName != "li") {
 				return false;
@@ -88,7 +90,7 @@ $(".trash").livequery(function(){
 			$(ui.draggable).remove();
 			$(this).parents(".bar").removeClass("trash-hover");
 			$(this).parents(".bar").removeClass("trash-active");
-			//save();
+			//save();//no need, sortable.update does the job.
 		},
 		over:	function(event, ui) {
 			$(this).parents(".bar").addClass("trash-hover");
@@ -105,7 +107,7 @@ $(".trash").livequery(function(){
 	});
 });
 
-//sort task sets
+//make sortable task sets
 $("#container").livequery(function(){
     $(this).sortable({
 		scroll:	true,
@@ -123,6 +125,7 @@ $("#container").livequery(function(){
 var timeout;
 var ignoreClick = false;
 
+//move flag to DOM
 var workflowExpanded = true;
 
 $("#workflow h3").livequery(function() {
@@ -132,6 +135,7 @@ $("#workflow h3").livequery(function() {
 			return;
 		}
 		var parent = $(this).parent();
+		// ignore click when double-clicking
         if (!timeout) {
 			timeout = setTimeout(function() {
 			    timeout = null;
@@ -177,8 +181,9 @@ $(".title").livequery(function() {
 	$(this).ellipsis();
 });
 
-//editable items
+//all the editable items
 $('.title, .action li, #workflow h3, ul.workflows > li').livequery(function() {
+	//switch to textarea for larger content
 	var type = ($(this).text().length > 50)?"textarea":"text";
 	
     $(this).editable(function(value, settings) {
@@ -205,17 +210,23 @@ $("a.delete").livequery(function() {
 	});
 });
 
+// hover + click on actions, message "proxy-ed" to Jetpack (that listen on the iframe load)
+// we do this here and not by binding the events from the jetpack directly due to a very strange
+// behaviour I got... TODO check if we have jquery.live() in jetpack and if it work here
 $('.action li').livequery(function() {
     $(this).hover(
 		function() {
-			//console.log($(this).rdf().databank.dump({format:'application/rdf+xml', serialize: true}));
-			send("link-over:" + $(this).attr("about"));
+			//send("link-over:" + $(this).attr("about"));
+			send("link-over:" + $(this).attr("id"));
 		},
 		function() {
-			send("link-out:" + $(this).attr("about"));
+			//send("link-out:" + $(this).attr("about"));
 		}
 	).click(function() {
-			send("show:" + $(this).attr("about"));
+		//send("show:" + $(this).attr("about"));
+		send("show:" + $(this).attr("id"));
+		//test rdfa extraction on this very action
+		//console.log($(this).rdf().databank.dump({format:'application/rdf+xml', serialize: true}));
 	});
 });
 
@@ -224,7 +235,6 @@ function save() {
 }
 
 function send(message) {
-	//console.log(message);
 	$("#comm").attr({
 		src: "data:text/plain,have a number: " + Math.random() + "#" + message
 	});
@@ -232,8 +242,9 @@ function send(message) {
 
 //dev bookmarklets
 
-//Load http://www.sprymedia.co.uk/article/Design bookmarklet
+//uncomment to load http://www.sprymedia.co.uk/article/Design bookmarklet
 //function fnStartDesign(sUrl) {var nScript = document.createElement('script');nScript.setAttribute('language','JavaScript');nScript.setAttribute('src',sUrl);document.body.appendChild(nScript);}fnStartDesign('http://www.sprymedia.co.uk/design/design/media/js/design-loader.js');
 
-//Load http://getfirebug.com/lite.html
+//uncomment to load http://getfirebug.com/lite.html
+//set slidebar to min 500px with to have firebug lite usable
 //var firebug=document.createElement('script');firebug.setAttribute('src','http://getfirebug.com/releases/lite/1.2/firebug-lite-compressed.js');document.body.appendChild(firebug);(function(){if(window.firebug.version){firebug.init();}else{setTimeout(arguments.callee);}})();void(firebug);
