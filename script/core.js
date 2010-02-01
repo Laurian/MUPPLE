@@ -44,9 +44,10 @@ var MUPPLE = function() {
 		mupple.restore(document);					
 
 		// "import" PURE right here, it requires "document"
-		$.get(base + "script/lib/pure_packed.js", function(data, status) {
+		// not needed anymore, we use E4X templating now
+		/*$.get(base + "script/lib/pure_packed.js", function(data, status) {
 			eval(data);
-		});
+		});*/
 		
 		
 		// listen to messages from the slidebar's code		
