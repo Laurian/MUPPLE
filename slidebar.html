@@ -3,8 +3,8 @@
       			xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 				xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
       			version="XHTML+RDFa 1.0"
-      			xml:lang="en-GB"
-				manifest="cache.manifest">
+      			xml:lang="en-GB">
+				<!-- manifest="cache.manifest -->
 	<head profile="http://www.w3.org/1999/xhtml/vocab http://www.w3.org/2003/g/data-view http://ns.inria.fr/grddl/rdfa/ http://purl.org/uF/2008/03/">
 		<link href="http://www.w3.org/2003/g/glean-profile" rel="transformation" />
 	  	<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
@@ -13,8 +13,9 @@
 		
 		<script type="text/javascript">var base = document.location;</script>
 		<script type="text/javascript"><!--//--><![CDATA[//><!-- 
-			function init() {
-				alert($().rdf().databank.dump({format:'application/rdf+xml', serialize: true}));
+			function test() {
+				//test rdfa extraction
+				//alert($().rdf().databank.dump({format:'application/rdf+xml', serialize: true}));
 			}
 		//--><!]]></script>
 		<link href="style/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
@@ -38,8 +39,8 @@
 	        		</div>
 					<h4>Open Workflows</h4>
 					<ul>
-	        			<li>Create a Jetpack</li>
-	        			<li class="selected">Collaborative Paper Writing</li>
+	        			<li>Create a Jetpack (n/a)</li>
+	        			<li class="selected">Collaborative Paper Writing (default)</li>
 	        		</ul>
 				</div>
 				<div class="expander">
@@ -62,14 +63,14 @@
 	                	<li class="link">Create learning diary</li>
 	                	<li class="link">Collect literature</li>
 	                	<li class="link">Create learning diary</li>
-	                	<li class="link">…</li>
+	                	<li class="link">(this list is not yet connected with the details editable below)</li>
 	                </ul>
 
 					<div class="bar">
 						<div class="workflowtrash">. . . .</div>
 					</div>
 					<div class="bar-button">
-						<a href="#" class="add">new task (set)</a>
+						<a href="#" class="add">new task (n/a)</a>
 					</div>
 				</div>
 	     	</div>
@@ -77,7 +78,7 @@
 		<div class="container" id="container">
 			<div class="empty">
 				<h1>things will happen here once you (re)load tabs</h1>
-				<p><a href="http://wiki.github.com/Laurian/MUPPLE" target="_new" class="info">About MUPPLE</a></p>
+				<p><a href="https://wiki.mozilla.org/Education/Projects/JetpackForLearning/Profiles/MUPPLE" target="_new" class="info">About MUPPLE</a></p>
 			</div>
 		</div>
 		<div id="templates">
@@ -87,8 +88,8 @@
 					<div class="content">
 				   		<ul class="action">
 				    		<li class="empty">
-								<p>no actions, <a href="http://wiki.github.com/Laurian/MUPPLE" target="_new" class="help">show me how to add one</a></p>
-								<p>or <a href="http://wiki.github.com/Laurian/MUPPLE" target="_new" class="delete">delete this group</a></p>
+								<p>no actions, <a href="https://wiki.mozilla.org/Education/Projects/JetpackForLearning/Profiles/MUPPLE#How_to_MUPPLE_the_Web" target="_new" class="help">show me how to add one</a></p>
+								<p>or <a href="#" class="delete">delete this group</a></p>
 							</li>
 				    	</ul>
 						<div class="bar">
@@ -107,6 +108,7 @@
 			</ul>
 		</div>
 		<span id="flow"><![CDATA[ ]]></span>
+		<!-- communication iframe, jetpack listens to load event on it -->
 		<iframe name="comm" id="comm" src="data:text/plain,:)#noop"></iframe>
 	</body>
 </html>
