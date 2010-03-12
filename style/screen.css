@@ -98,6 +98,8 @@ body.slide a.delete { background-image: url(../image/x-2.png); background-repeat
 body.slide a.delete:hover { background-image: url(../image/x-1.png); }
 body.slide a.add { background-image: url(../image/doc-add-2.png); background-repeat: no-repeat; background-position: right; padding-right: 20px; padding-bottom: 2px; }
 body.slide a.add:hover { background-image: url(../image/doc-add-1.png); }
+body.slide a.export { background-image: url(../image/out-2.png); background-repeat: no-repeat; background-position: right; padding-right: 20px; padding-bottom: 2px; }
+body.slide a.export:hover { background-image: url(../image/out-1.png); }
 body.slide #workflows { display: inline; float: left; margin-right: 10px; width: 270px; width: 290px; margin: 0; background: #999999; background: -moz-linear-gradient(top, #999999, #666666); -moz-border-radius: 0px 0px 3px 3px; -moz-box-shadow: 0px 0px 7px #000000; }
 * html body.slide #workflows { overflow-x: hidden; }
 body.slide #workflows div.content { display: none; color: #eeeeee; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4); }
@@ -123,6 +125,8 @@ body.slide #workflow .content { display: inline; float: left; margin-right: 10px
 * html body.slide #workflow .content { overflow-x: hidden; }
 body.slide #workflow .content ul { margin: 0; padding: 0; list-style: none; }
 body.slide #workflow .content ul li { background-image: url(../image/check-circle-2.png); background-repeat: no-repeat; background-position: 0 2px; padding-left: 20px; padding-bottom: 4px; }
+body.slide #workflow .content ul li div.payload { display: none; }
+body.slide #workflow .content ul li.active { background-image: url(../image/check-circle-1.png); }
 body.slide #workflow .content ul li:hover { background-image: url(../image/check-circle-1.png); }
 body.slide #workflow .content ul li.empty { background-image: none //url(../image/sad-face-2.png); background-position: 100px 100px; font-style: italic; }
 body.slide #workflow .content ul li.empty:hover { color: #cccccc; }
@@ -137,6 +141,7 @@ body.slide div.tab { display: inline; float: left; margin-right: 10px; width: 27
 * html body.slide div.tab { overflow-x: hidden; }
 body.slide div.tab h4 { display: inline; float: left; margin-right: 10px; width: 270px; width: 250px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 0; background-image: url(../image/check-circle-2.png); background-repeat: no-repeat; background-position: 0 1px; padding-left: 20px; padding-right: 10px; }
 * html body.slide div.tab h4 { overflow-x: hidden; }
+body.slide div.tab h4.done { background-image: url(../image/check-circle-2-green.png); }
 body.slide div.tab .content { display: inline; float: left; margin-right: 10px; width: 270px; margin-top: 12px; }
 * html body.slide div.tab .content { overflow-x: hidden; }
 body.slide div.tab .content ul { margin: 0; padding: 0; list-style: none; }
@@ -152,10 +157,13 @@ body.slide div.tab .content ul li.pic { background-image: url(../image/image-2.p
 body.slide div.tab .content ul li.pic:hover { background-image: url(../image/image-1.png); }
 body.slide div.tab .content ul li.shot { background-image: url(../image/camera-2.png); background-position: 0 0; }
 body.slide div.tab .content ul li.shot:hover { background-image: url(../image/camera-1.png); }
+body.slide div.tab .content ul li.na { color: #cccccc; }
 body.slide div.tab .content ul li.empty { padding-left: 0; background-image: none //url(../image/sad-face-2.png); background-position: 100px 100px; font-style: italic; }
 body.slide div.tab .content ul li.empty:hover { color: #cccccc; }
 body.slide div.tab:hover h4 { background-image: url(../image/check-circle-1.png); }
-body.slide div.tab-deleted { background: -moz-repeating-linear-gradient(top left -45deg, #f7f7f7, #f7f7f7 5px, white 5px, white 10px); }
+body.slide div.tab:hover h4.done { background-image: url(../image/check-circle-1-green.png); }
+body.slide div.tab-current { -moz-box-shadow: 0px 0px 5px #3861b2; background-color: white; background: -moz-linear-gradient(top, #DFF4FF, #f7f7f7); }
+body.slide div.tab-deleted { background: -moz-repeating-linear-gradient(top left 45deg, #ffe7e7, #ffe7e7 5px, white 5px, white 10px); -moz-box-shadow: 0px 0px 5px red; }
 body.slide #flow { position: relative; left: -150px; }
 body.slide div.bar { display: inline; float: left; margin-right: 10px; width: 70px; padding-left: 80px; border-top: 1px dashed #eeeeee; padding-top: 4px; background-image: none //url(../image/trash-2.png); background-position: 0 4px; background-repeat: no-repeat; }
 * html body.slide div.bar { overflow-x: hidden; }
@@ -170,3 +178,17 @@ body.slide div.bar-button button:active { background-color: #6299c5; border-colo
 body.slide div.bar-button button img { margin: 0 3px -3px 0 !important; padding: 0; border: none; width: 16px; height: 16px; float: none; }
 
 #comm { width: 200px; height: 50px; display: none; }
+
+#edit { text-align: center; }
+#edit button { background-color: #f5f5f5; border-color: #eeeeee #dedede #dedede #eeeeee; color: #565656; display: block; display: inline; float: center; margin: 0.7em 0.5em 0.7em 0; border-width: 1px; border-style: solid; font-family: "Lucida Grande", Tahoma, Arial, Verdana, sans-serif; font-size: 100%; line-height: 130%; text-decoration: none; font-weight: bold; cursor: pointer; -moz-border-radius: 4px 4px 4px 4px; margin: 0; font-size: 10px; margin-left: auto; margin-right: auto; }
+#edit button:hover { background-color: #dff4ff; border-color: #d2f1ff #c2e1ef #c2e1ef #d2f1ff; color: #336699; }
+#edit button:active { background-color: #6299c5; border-color: #72a9d5 #6299c5 #6299c5 #72a9d5; color: white; }
+#edit button img { margin: 0 3px -3px 0 !important; padding: 0; border: none; width: 16px; height: 16px; float: none; }
+
+body.edit { background: -moz-repeating-linear-gradient(top left -45deg, #f7f7f7, #f7f7f7 5px, white 5px, white 10px) !important; }
+body.edit #new-task { display: block; }
+body.edit #export { display: none; }
+
+#new-task { display: none; }
+
+#export { display: block; }

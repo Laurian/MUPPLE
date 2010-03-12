@@ -64,8 +64,11 @@
 				<div class="bar">
 					<div class="workflowtrash">trash</div>
 				</div>
-				<div class="bar-button">
-					<a href="#" class="add">new task (set)</a>
+				<div class="bar-button" id="new-task">
+					<a href="#" class="add">new task</a>
+				</div>
+				<div class="bar-button" id="export">
+					<a href="#" class="export">export</a>
 				</div>
 
 			</div>
@@ -115,7 +118,7 @@
 				</div>
             </div>
 			
-            <div class="tab" style="xoverflow: visible;">
+            <div class="tab tab-current" style="xoverflow: visible;">
             	<h4 class="title">long title long title long title long title long title </h4>
 				<div class="content">
 				<ul class="action">
@@ -128,7 +131,7 @@
 						</p>
 					</li>
                 	<li>action one</li>
-                	<li>action two</li>
+                	<li class="na">action two</li>
                 	<li>action three</li>
                 </ul>
 				
@@ -142,8 +145,14 @@
 				</div>
             </div>
 			
-			
         </div>
+
+		
+
+		<div id="edit">
+			<button>Edit this workflow</button>
+		</div>		
+
         <div id="templates">
             <div id="tab">
             </div>

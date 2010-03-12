@@ -5,7 +5,7 @@ $("body").mousemove(function(e) {
 });
 
 //make sortable the workflow items
-$(".workflows").livequery(function(){
+$(".edit .workflows").livequery(function(){
     $(this).sortable({
 		revert: 		true,
 		dropOnEmpty:	true,
@@ -14,6 +14,8 @@ $(".workflows").livequery(function(){
 			save();
 		}
 	});
+}, function(){
+		$(this).sortable("destroy");
 });
 
 //expand current workflow
@@ -32,7 +34,7 @@ $(".expander").click(function() {
 });
 
 //trash bin for workflow items
-$(".workflowtrash").livequery(function(){
+$(".edit .workflowtrash").livequery(function(){
 	$(this).droppable({
 		accept: 'ul.workflows > li',
 		activeClass: 'trash-active',
@@ -56,10 +58,12 @@ $(".workflowtrash").livequery(function(){
 			$(this).parents(".bar").removeClass("trash-active");
 		}		
 	});
+}, function() {
+	//destroy, hmmm, no dragable/sortable available anyway
 });
 
 //make sortable tasks
-$(".action").livequery(function(){
+$(".edit .action").livequery(function(){
     $(this).sortable({
 		revert: 		true,
 		connectWith:	'.action',
@@ -69,10 +73,12 @@ $(".action").livequery(function(){
 			save();
 		}
 	});
+}, function(){
+	$(this).sortable("destroy");
 });
 
 //trash bin for tasks
-$(".trash").livequery(function(){
+$(".edit .trash").livequery(function(){
 	$(this).droppable({
 		//accept: 'li', 
 		//we need accept 'li' with common parrent:
@@ -105,10 +111,12 @@ $(".trash").livequery(function(){
 			$(this).parents(".bar").removeClass("trash-active");
 		}		
 	});
+}, function() {
+	//destroy, hmmm, no dragable/sortable available anyway
 });
 
 //make sortable task sets
-$("#container").livequery(function(){
+$(".edit #container").livequery(function(){
     $(this).sortable({
 		scroll:	true,
 		revert: true,
@@ -120,6 +128,8 @@ $("#container").livequery(function(){
 			save();
 		}
 	});
+}, function() {
+	$(this).sortable("destroy");
 });
 
 var timeout;
@@ -172,7 +182,9 @@ $(".title").livequery(function() {
                 $(".content", parent).toggle("blind", null, 200);
             }, 200);
 		}
-    }).bind("dblclick", function() {
+    });
+
+$(".title").bind("dblclick", function() {
         if (timeout) {
             clearTimeout(timeout);
             timeout = null;
@@ -182,7 +194,7 @@ $(".title").livequery(function() {
 });
 
 //all the editable items
-$('.title, .action li, #workflow h3, ul.workflows > li').livequery(function() {
+$('.edit .title,.edit .action li,.edit #workflow h3,.edit ul.workflows > li > span').livequery(function() {
 	//switch to textarea for larger content
 	var type = ($(this).text().length > 50)?"textarea":"text";
 	
@@ -197,10 +209,12 @@ $('.title, .action li, #workflow h3, ul.workflows > li').livequery(function() {
 		type:	type,
 		onblur:	"submit"
     });
+}, function() {
+	$(this).editable("destroy");
 });
 
 //delete taskset
-$("a.delete").livequery(function() {
+$(".edit a.delete").livequery(function() {
     $(this).bind("click", function() {
 		$(this).parents(".tab").addClass("tab-deleted").slideUp("normal", function() {
 			$(this).remove();
@@ -217,19 +231,36 @@ $('.action li').livequery(function() {
     $(this).hover(
 		function() {
 			//send("link-over:" + $(this).attr("about"));
-			send("link-over:" + $(this).attr("id"));
+			if ($('body.play').length > 0) send("link-over:" + $(this).attr("id"));
 		},
 		function() {
 			//send("link-out:" + $(this).attr("about"));
 		}
 	).click(function() {
 		//send("show:" + $(this).attr("about"));
-		send("show:" + $(this).attr("id"));
+		if ($('body.play').length > 0) {
+			if ($(this).parents("div.tab").hasClass("tab-current")) {
+				send("show:" + $(this).attr("id"));				
+			} else {
+				send("switch-show:" + $(this).attr("id"));	
+			}
+		};
 		//test rdfa extraction on this very action
 		//console.log($(this).rdf().databank.dump({format:'application/rdf+xml', serialize: true}));
 	});
 });
 
+$("#edit button").toggle(
+		function() {
+			$("body").addClass("edit").removeClass("play");
+			$(this).text("End editing mode");
+		},
+		function() {
+			$("body").removeClass("edit").addClass("play");			
+			$(this).text("Edit this workflow");
+		}
+	);
+	
 function save() {
 	send("save");
 }
@@ -239,6 +270,70 @@ function send(message) {
 		src: "data:text/plain,have a number: " + Math.random() + "#" + message
 	});
 }
+
+$("#new-task a").livequery(function(){
+	$(this).click(function(){
+		$("#workflow ul.workflows").append("<li id='urn:uuid:" + guid() + "'><span>Double click to edit</span><div class='payload'><div class='empty'><h1>things will happen here once you (re)load tabs</h1><p><a href='https://wiki.mozilla.org/Education/Projects/JetpackForLearning/Profiles/MUPPLE' target='_new' class='info'>About MUPPLE</a></p></div></div></li>");
+	});	
+});
+
+
+
+$("#export a").livequery(function(){
+	$(this).click(function(){
+		//alert("export");
+		send("export");
+	});	
+});
+
+
+$("#workflow ul.workflows > li").livequery(function() {
+	$(this).click(function() {
+		if ($('body.play').length > 0) {
+			
+			var id = $(this).attr("id");
+
+			//save cards
+			$.map($("#workflow ul.workflows > li"), function(li){
+				if ($(li).attr("id") != id && $(li).hasClass("active")) {
+					$(li).removeClass("active");
+					$(li).children("div.payload").html($("#container").html());
+				}
+			});
+
+			//load cards
+			$.map($("#workflow ul.workflows > li"), function(li){
+				if ($(li).attr("id") == id) {
+					$(li).addClass("active");
+					$("#container").html($(li).children("div.payload").html());
+				}
+			});
+			
+			save();
+		}
+	});
+});
+
+$(".tab button").livequery(function(){
+	$(this).toggle(function() {
+		$(this).text("Mark as undone")
+		.closest(".tab").children("h4").addClass("done");
+	}, function() {
+		$(this).text("Mark as done")
+		.closest(".tab").children("h4").removeClass("done");
+	});	
+	save();
+});
+
+
+//http://note19.com/2007/05/27/javascript-guid-generator/
+function S4() {
+   return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+}
+function guid() {
+   return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
+}
+
 
 //dev bookmarklets
 

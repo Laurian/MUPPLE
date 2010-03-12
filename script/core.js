@@ -17,11 +17,14 @@
 //TODO find out what license should be used.
 
 
-const base = "http://purl.org/ou/mupple/";
-//const base = "http://127.0.0.1:8888/MUPPLE/"; 
+
+//const base = "http://purl.org/ou/mupple/";
+const base = "http://127.0.0.1:8888/MUPPLE/"; 
 
 const width = 310;
 
+
+//console.log(jetpack.tabs[0].raw.ownerDocument.defaultView.gUbiquity);
 
 var manifest = {
 	firstRunPage: "https://wiki.mozilla.org/Education/Projects/JetpackForLearning/Profiles/MUPPLE#How_to_MUPPLE_the_Web"//base + "first-run.html",
@@ -56,6 +59,40 @@ var MUPPLE = function() {
 			message = message.substring(message.indexOf("#") + 1);
 			
 			if (message == "save") mupple.save(document);
+			
+			if (message == "export") {
+				
+				/*var xsl = <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:media="http://search.yahoo.com/mrss/" version="1.0">
+					<xsl:template match="/">
+						<html>
+							<head>
+								<title><xsl:value-of select="//h3" /></title>
+							</head>
+							<body>
+								<h1><xsl:value-of select="//h3" /></h1>
+								<xsl:for-each select="//ul[@class = 'workflows']/li">
+									X<h2><xsl:value-of select="span" /></h2>
+								</xsl:for-each>
+							</body>
+						</html>
+					</xsl:template>
+				</xsl:stylesheet>;*/
+				/*jetpack.tabs.focused.contentWindow.open("data:application/xml,<?xml version='1.0' encoding='UTF-8'?><?xml-stylesheet type='text/xsl' encoding='UTF-8' href='http://localhost:8888/MUPPLE/export.xsl' version='1.0'?><html><head>"
+				//+ xsl.toString()
+				+"</head><body>" + $("#workflow", document).html() + "</body></html>");*/
+				/*var processor = Components.classes["@mozilla.org/document-transformer;1?type=xslt"]  
+				                          .createInstance(Components.interfaces.nsIXSLTProcessor);
+				processor.importStylesheet(xsl.toString());
+				
+				var fragment = processor.transformToFragment("<html><body>"+$("#workflow", document).html()+"</body></html>", document);
+				jetpack.notifications.show($(fragment).html());*/
+				
+				jetpack.tabs.focused.contentWindow.open("data:text/html,<html><head>"
+				+ '<link href="'+base+'style/export.css" media="screen, projection" rel="stylesheet" type="text/css" />'
+				+"</head><body>" + $("#workflow", document).html() + "<a class='mupple' href='http://purl.org/ou/mupple'>Created with MUPPLE</a></body></html>");
+				
+			}
+			
 			
 			var command = message.substring(0, message.indexOf(":"));
 			var args = message.substring(message.indexOf(":") + 1);
@@ -104,14 +141,69 @@ var MUPPLE = function() {
 					}, 500);
 				}
 				
+				if (action.attr("typeof") == "mupple:range") {
+					var xptrString = action.attr("about");
+					
+					console.log(xptrString);
+					
+				
+				
+					/*var _window;
+					var _document;
+					for (i = 0; i < jetpack.tabs.length; i++) {
+						if (jetpack.tabs[i] == jetpack.tabs.focused) {
+							_document = jetpack.tabs[i].raw.ownerDocument;
+							_window = _document.defaultView;
+						}
+					}*/
+					
+
+					//var range = Utils.xptrService.parseXPointerToRange(xptrString, jetpack.tabs.focused.contentDocument.wrappedJSObject);
+					
+					/*var range = _document.createRange();
+					var node = $("p", jetpack.tabs.focused.contentDocument);
+					console.log(node);
+					
+					range.setStart(node[0], 0);
+					range.setEnd(node[0], 1);
+					*/
+					//jetpack.tabs.focused.contentWindow.getSelection().addRange(range);
+				}
+				
 			}
 			
 			
-			if (command == "show") {
+			
+			
+			if (command == "show" || command == "switch-show") {
 				var action = $("#" + args, document);
 				
 			
 				var id = Utils.sha1(action.attr("about"));
+				
+				if (command == "switch-show") {
+					
+					// ugly, parents(".tab") was not working, odd!
+					var url = action.parent().parent().parent().attr("about");
+					//jetpack.notifications.show(  + " input:" + url);
+					
+					var tab = null;
+					for (i = 0; i < jetpack.tabs.length; i++) {
+
+						//jetpack.notifications.show("? "+jetpack.tabs[i].url);
+
+						if (jetpack.tabs[i].url == url) {
+							tab = jetpack.tabs[i]; 
+						}
+					}
+					if (tab) {
+						tab.focus();
+					} else {
+						tab = jetpack.tabs.open(url);
+						tab.focus();
+					}
+					return;
+				}
 
 				//console.log(action.attr("about"));
 				//console.log(id);
@@ -190,7 +282,7 @@ var MUPPLE = function() {
 			    	command: 	function() {
 						//TODO: more granular IDs, this is 2nd level domain name only, 
 						//confusing, we need site/sub-site level (define site!)
-						var id = Utils.sha1(Utils.baseDomain(context.document.location));
+						var id = Utils.sha1(context.document.location);
 						
 						var text = $(context.node).text();
 						
@@ -225,7 +317,7 @@ var MUPPLE = function() {
 					icon:		base + "image/document-edit-1.png",
 			    	label:		"Add form field action",
 			    	command: 	function() {
-						var id = Utils.sha1(Utils.baseDomain(context.document.location));
+						var id = Utils.sha1(context.document.location);
 
 						var action = $("#actions li.field", document).clone()
 							.text($(context.node).attr("name")).attr({
@@ -273,7 +365,7 @@ var MUPPLE = function() {
 						icon:		base + "image/bubble-1.png",
 				    	label:		"Note: " + jetpack.selection.text,
 						command: 	function() {
-							var id = Utils.sha1(Utils.baseDomain(context.document.location));
+							var id = Utils.sha1(context.document.location);
 
 							var action = $("#actions li.note", document).clone()
 								.text(jetpack.selection.text).attr({
@@ -286,6 +378,7 @@ var MUPPLE = function() {
 									id:			Utils.uuid()
 								});
 							$("#" + id + " .action", document).append(action);
+							//Utils.toggleUbiquity("translate to japanese");
 						
 							mupple.save(document);
 						}
@@ -295,12 +388,93 @@ var MUPPLE = function() {
 		}
 	}
 	
+	
 	function setupListeners() {
+		
+		var focus = function() {
+			var tab = jetpack.tabs.focused;
+			console.log(tab);
+			var id = Utils.sha1(tab.url);
+			console.log(tab.url);
+			console.log(id);
+			
+			
+			$.map($(".tab", document), function(card) {
+				console.log($(card).attr("id"));
+				if ($(card).attr("id") == id) {
+					$(card).addClass("tab-current");
+					//iterate actions and validate their existance
+					$.map($(card).find(".action li"), function(li) {
+						/////////////////////////
+						var action = $(li);
+						var id = Utils.sha1(action.attr("about"));
+						
+						var available = false;
+						
+						if (action.attr("typeof") == "mupple:link") {
+							var target = $("a[href='"+action.attr("about")+"']", jetpack.tabs.focused.contentDocument);
+							if (target.length > 0) available = true;
+							target.css({
+								outline: "1px solid rgba(255, 20, 147, 0.6)",
+								"-moz-outline-radius":	"4px 4px 4px 4px"
+							});
+							setTimeout(function() {
+								$("a[href='"+action.attr("about")+"']", jetpack.tabs.focused.contentDocument).css({
+									outline: null,
+									"-moz-outline-radius": null
+								});
+							}, 500);
+						}
 
+						if (action.attr("typeof") == "mupple:field") {
+							var target = $("input[name='"+action.attr("about").substring(1)+"']", jetpack.tabs.focused.contentDocument);
+							if (target.length > 0) available = true;
+							target.css({
+								outline: "1px solid rgba(255, 20, 147, 0.6)",
+								"-moz-outline-radius":	"4px 4px 4px 4px"
+							});
+							setTimeout(function() {
+								$("input[name='"+action.attr("about").substring(1)+"']", jetpack.tabs.focused.contentDocument).css({
+									outline: null,
+									"-moz-outline-radius": null
+								});
+							}, 500);
+						}
+
+						if (action.attr("typeof") == "mupple:select") {
+							var target = $("select[name='"+action.attr("about").substring(1)+"']", jetpack.tabs.focused.contentDocument);
+							if (target.length > 0) available = true;
+							target.css({
+								outline: "1px solid rgba(255, 20, 147, 0.6)",
+								"-moz-outline-radius":	"4px 4px 4px 4px"
+							});
+							setTimeout(function() {
+								$("select[name='"+action.attr("about").substring(1)+"']", jetpack.tabs.focused.contentDocument).css({
+									outline: null,
+									"-moz-outline-radius": null
+								});
+							}, 500);
+						}
+						if (available) {
+							action.removeClass("na");
+						} else {
+							action.addClass("na");
+						}
+						/////////////////////////
+					});
+				} else {
+					$(card).removeClass("tab-current");
+				}
+			});
+		};
+	
 		jetpack.tabs.onReady(function(tab) {
 			new Card(document, tab);
+			focus();
 			mupple.save(document);
 		});
+
+		jetpack.tabs.onFocus(focus);
 	}
 	
 	//TODO: use save/restore to sync multiple slidebars in multiple windows
@@ -308,10 +482,12 @@ var MUPPLE = function() {
 	this.save = function(document) {
 		//TODO: save from higher in hierarchy, to save sets and open workflows
 		jetpack.storage.simple.test = $("#container", document).html();
+		jetpack.storage.simple.test2 = $("#workflow", document).html();
 	};
 	
 	this.restore = function(document) {
 		$("#container", document).html(jetpack.storage.simple.test);
+		$("#workflow", document).html(jetpack.storage.simple.test2);
 	};
 	
 };
@@ -375,19 +551,24 @@ var SlideBar = function(callback) {
 
 };
 
+
 // The Card is the widget that keeps actions for a particular domain name
 // TODO: each step in a workflow should have its own stack of cards
 var Card = function(document, tab) {
 	
 	if ($("title", tab).length == 0) return;
+	if ($("title", tab).indexOf("ShareThis") > 0) return;
 
-	var id = Utils.sha1(Utils.baseDomain(tab.location));
+	var url = tab.location;
+	var id = Utils.sha1(url);
+	
 	if ($("#" + id, document).length != 0) return;
-
+	
+	
 	var title = $("title", tab).text();
 
 	//TODO add all needed namespaces, not to loose them on copy-paste
-	var template = <div class="tab" id={id} xmlns:mupple="http://purl.org/ou/mupple/schema">
+	var template = <div class="tab" id={id} xmlns:mupple="http://purl.org/ou/mupple/schema" about={url}>
 		<h4 class="title" about={tab.location} property="rdfs:label">{title}</h4>
 		<div class="content">
 	   		<ul class="action">
@@ -400,7 +581,7 @@ var Card = function(document, tab) {
 				<div class="trash">. . . .</div><!-- TODO: use css content instead of dots -->
 			</div>
 			<div class="bar-button">
-				<button>Done</button>
+				<button>Mark as done</button>
 			</div>
 		</div>
 	</div>;

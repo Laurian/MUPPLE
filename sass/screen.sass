@@ -38,7 +38,8 @@ body.slide
 	height:		100%
 	//overflow-x:	hidden
 	text-rendering:	optimizeLegibility
-
+	
+	
 	div.container
 		+container
 		width:			290px
@@ -107,7 +108,17 @@ body.slide
 	a.add:hover
 		background-image: 		url(../image/doc-add-1.png)
 
+	a.export
+		background-image: 		url(../image/out-2.png)
+		background-repeat: 		no-repeat
+		background-position: 	right
+		padding-right: 			20px
+		padding-bottom:			2px
 
+	a.export:hover
+		background-image: 		url(../image/out-1.png)
+
+	
 
 
 	#workflows
@@ -142,7 +153,7 @@ body.slide
 					background-position: 	0 0px
 					padding-left: 			20px
 					padding-bottom:			4px
-					
+										
 				li:hover
 					color:					white
 					
@@ -231,6 +242,16 @@ body.slide
 					background-position: 	0 2px
 					padding-left: 			20px
 					padding-bottom:			4px
+					
+					span
+						//color:	red
+					div.payload
+						//color:	blue
+						display:	none
+						
+				li.active
+					background-image: 		url(../image/check-circle-1.png)
+					
 				li:hover
 					background-image: 		url(../image/check-circle-1.png)
 					
@@ -280,7 +301,7 @@ body.slide
 		background-color:	white
 		background:			-moz-linear-gradient(top, white, #f7f7f7)
 		margin:				8px
-		padding:			4px
+		padding:			4px			
 		
 		h4
 			+column(7)
@@ -294,6 +315,9 @@ body.slide
 			background-position: 	0 1px
 			padding-left: 			20px
 			padding-right:			10px
+			
+		h4.done
+			background-image: 		url(../image/check-circle-2-green.png)
 			
 		.content
 			+column(7)
@@ -342,6 +366,8 @@ body.slide
 				li.shot:hover
 					background-image: 		url(../image/camera-1.png)
 
+				li.na
+					color:			#cccccc
 
 				li.empty
 					padding-left: 			0
@@ -352,15 +378,23 @@ body.slide
 					//background-image: 		none //url(../image/sad-face-1.png)
 					color:	#cccccc
 
-
 				
 	div.tab:hover
 		h4
 			background-image: 		url(../image/check-circle-1.png)		
 
+		h4.done
+			background-image: 		url(../image/check-circle-1-green.png)
+
+	div.tab-current
+		-moz-box-shadow:	0px 0px 5px #3861b2
+		background-color:	white
+		background:			-moz-linear-gradient(top, #DFF4FF, #f7f7f7)
+
 	div.tab-deleted
-		background: 		-moz-repeating-linear-gradient(top left -45deg, #f7f7f7, #f7f7f7 5px, white 5px, white 10px)
-		
+		background: 		-moz-repeating-linear-gradient(top left 45deg, #ffe7e7, #ffe7e7 5px, white 5px, white 10px)
+		-moz-box-shadow:	0px 0px 5px red
+
 	#flow
 		position:	relative
 		left:		-150px
@@ -417,3 +451,30 @@ body.slide
 	width:		200px
 	height:		50px
 	display:	none
+	
+
+#edit
+	text-align:	center
+	
+	button
+		+button-colors
+		+button-hover-colors
+		+button-active-colors
+		+small-button("center")
+		margin-left:	auto
+		margin-right:	auto
+	
+body.edit
+	background: 		-moz-repeating-linear-gradient(top left -45deg, #f7f7f7, #f7f7f7 5px, white 5px, white 10px) !important
+	
+	#new-task
+		display:	block
+
+	#export
+		display:	none
+			
+#new-task
+	display:	none
+	
+#export
+	display:	block

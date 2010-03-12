@@ -29,7 +29,7 @@
 			}
 		/*]]>*/--></style>
 	</head>
-	<body class="slide">
+	<body class="slide play">
 		<div id="main" class="container">
 			<!-- -->
 			<div id="workflows">
@@ -49,7 +49,7 @@
 	        </div>
 			<!-- -->
 			<div id="workflow">
-	            <h3>Collaborative Paper Writing</h3>
+	            <h3>Untitled Workflow</h3>
 				<div class="content">
 					<ul class="workflows">
 						<li class="empty">
@@ -60,17 +60,16 @@
 								or <a href="#" class="delete">delete this workflow</a>
 							</p>
 						</li>
-	                	<li class="link">Create learning diary</li>
-	                	<li class="link">Collect literature</li>
-	                	<li class="link">Create learning diary</li>
-	                	<li class="link">(this list is not yet connected with the details editable below)</li>
 	                </ul>
 
 					<div class="bar">
 						<div class="workflowtrash">. . . .</div>
 					</div>
-					<div class="bar-button">
-						<a href="#" class="add">new task (n/a)</a>
+					<div class="bar-button" id="new-task">
+						<a href="#" class="add">new task</a>
+					</div>
+					<div class="bar-button" id="export">
+						<a href="#" class="export">export</a>
 					</div>
 				</div>
 	     	</div>
@@ -78,9 +77,14 @@
 		<div class="container" id="container">
 			<div class="empty">
 				<h1>things will happen here once you (re)load tabs</h1>
-				<p><a href="https://wiki.mozilla.org/Education/Projects/JetpackForLearning/Profiles/MUPPLE" target="_new" class="info">About MUPPLE</a></p>
+				<p><a href="https://wiki.mozilla.org/Education/Projects/JetpackForLearning/Profiles/MUPPLE" target="_new" class="info">About MUPPLE</a> [foo]</p>
 			</div>
 		</div>
+		
+		<div id="edit">
+			<button>Edit this workflow</button>
+		</div>
+		
 		<div id="templates">
 			<div id="tab">
 				<div class="tab id@id">
