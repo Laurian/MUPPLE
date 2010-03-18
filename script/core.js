@@ -18,8 +18,8 @@
 
 
 
-//const base = "http://purl.org/ou/mupple/";
-const base = "http://127.0.0.1:8888/MUPPLE/"; 
+const base = "http://purl.org/ou/mupple/";
+//const base = "http://127.0.0.1:8888/MUPPLE/"; 
 
 const width = 310;
 
@@ -557,7 +557,7 @@ var SlideBar = function(callback) {
 var Card = function(document, tab) {
 	
 	if ($("title", tab).length == 0) return;
-	if ($("title", tab).indexOf("ShareThis") > 0) return;
+	//if ($("title", tab).indexOf("ShareThis") > 0) return;
 
 	var url = tab.location;
 	var id = Utils.sha1(url);
