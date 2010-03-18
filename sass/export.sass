@@ -1,0 +1,36 @@
+// This import applies a global reset to any page that imports this stylesheet.
+@import blueprint/reset.sass
+// To configure blueprint, edit the partials/base.sass file.
+@import partials/base.sass
+// Import all the default blueprint modules so that we can access their mixins.
+@import blueprint
+// Import the non-default scaffolding module.
+@import blueprint/modules/scaffolding.sass
+
++blueprint-typography("body")
++blueprint-scaffolding("body")
+
+body
+	padding:	20px
+	
+h3
+	font-size:	24px
+	
+ul.workflows
+	list-style-type:	decimal
+
+ul.workflows > li > span
+	font-size:	18px
+
+div.tab
+	margin-left:	20px
+	
+	li
+		
+	
+h4.title
+	font-size:	16px
+
+	
+.empty, .trash, .bar, .bar-button
+	display: none
